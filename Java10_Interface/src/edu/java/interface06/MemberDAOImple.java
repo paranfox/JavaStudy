@@ -20,14 +20,16 @@ public class MemberDAOImple implements MemberDAO {
 		}
 		return instance;
 	}
+
 	// 나중에 DB에서 사용 할 것이지만 지금은 이렇게 사용
 	private final int MAX = 100; // 최대 회원수
 	private MemberVO[] list = new MemberVO[MAX]; // 회원 정보를 저장할 배열
 	private int count; // 배열에 저장될 데이터 개수
-	
+
 	public int getCount() {
 		return count;
 	}
+
 	@Override
 	public int insert(MemberVO vo) {
 		System.out.println("insert()"); // 로그 찍기
@@ -44,14 +46,14 @@ public class MemberDAOImple implements MemberDAO {
 
 	@Override
 	public MemberVO select(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return list[index];
 	}
 
 	@Override
 	public int update(int index, MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		list[index].setPw(vo.getPw());
+		list[index].setEmail(vo.getEmail());
+		return 1;
 	}
 
 }

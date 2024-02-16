@@ -28,10 +28,13 @@ public class MemberMain {
 				selectAll();
 				break;
 			case Menu.SELECT_BY_INDEX:
+				selectByIndax();
 				break;
 			case Menu.UPDATE:
+				updateMember();
 				break;
 			case Menu.QUIT:
+				run = false;
 				break;
 			default:
 				System.out.println("다시 선택하세요.");
@@ -41,10 +44,48 @@ public class MemberMain {
 
 	} // end main()
 
+	private static void updateMember() {
+		System.out.println("인덱스 입력>");
+		int index = sc.nextInt();
+
+		int count = ((MemberDAOImple) dao).getCount();
+		if (index >= 0 && index < count) {
+			System.out.println("비밀번호 입력>");
+			String pw = sc.next();
+			System.out.println("이메일 입력>");
+			String email = sc.next();
+
+			MemberVO vo = new MemberVO("", pw, email);
+			int result = dao.update(index, vo);
+			if (result == 1) {
+				System.out.println("회원 정보 수정 완료");
+			}
+
+		}
+	} // end updateMember()
+
+	private static void selectByIndax() {
+		System.out.println("검색할 인덱스 입력>");
+		int index = sc.nextInt();
+
+		int count = ((MemberDAOImple) dao).getCount();
+		if (index >= 0 && index < count) {
+			MemberVO vo = dao.select(index);
+			System.out.println(vo);
+		} else {
+			System.out.println("존재하지 않는 인덱스입니다.");
+		}
+	} // end selectByIndax()
+
 	private static void selectAll() {
 		MemberVO[] list = dao.select();
-		
-		int count = ((MemberDAOImple)dao).getCount();
+
+		int count = ((MemberDAOImple) dao).getCount();
+		for (int i = 0; i < count; i++) {
+			System.out.println("회원 정보 [" + i + "]");
+			System.out.println(list[i]);
+		}
+
 	} // end selectAll()
 
 	private static void InsertMember() {
@@ -55,11 +96,10 @@ public class MemberMain {
 		String pw = sc.next();
 		System.out.println("이메일 입력>");
 		String email = sc.next();
-		
+
 		MemberVO vo = new MemberVO(id, pw, email);
 		dao.insert(vo);
-		
-		
+
 	} // end InsertMember()
 
 	private static void showMainMenu() {
