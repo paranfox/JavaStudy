@@ -34,6 +34,7 @@ public class MemberMain {
 				updateMember();
 				break;
 			case Menu.QUIT:
+				sc.close();
 				run = false;
 				break;
 			default:
@@ -109,5 +110,5 @@ public class MemberMain {
 		System.out.println("선택>");
 
 	} // end showMainMenu()
-
+	
 } // end MemberMain
