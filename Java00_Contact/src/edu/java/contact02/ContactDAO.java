@@ -12,4 +12,5 @@ public interface ContactDAO {
 
 	// 연락처 정보 인덱스 수정
 	public abstract int update(int index, ContactDTO dto);
+	
 } // end ContactDAO
