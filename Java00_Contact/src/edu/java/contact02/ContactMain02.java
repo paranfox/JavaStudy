@@ -8,7 +8,7 @@ import java.util.Scanner;
 // * 현재 시스템은 규모가 작으므로 Controller 역활도 수행
 public class ContactMain02 {
 	private static Scanner sc;
-	private static ContactDAO dao; // MemeberDAOImple 인스턴스를 저장할 변수
+	private static ContactDAO dao; // ContactDAOImple 인스턴스를 저장할 변수
 
 	public static void main(String[] args) {
 
@@ -30,7 +30,7 @@ public class ContactMain02 {
 		                selectAll();
 		                break;
 		            case Menu.SELECT_BY_INDEX:
-		                selectByIndax(); // Assuming there was a typo in the original code
+		                selectByIndax();
 		                break;
 		            case Menu.UPDATE:
 		                updateMember();
