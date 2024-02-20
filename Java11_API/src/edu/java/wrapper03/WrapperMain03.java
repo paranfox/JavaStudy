@@ -23,9 +23,6 @@ public class WrapperMain03 {
 		// add(), subtract(), multiply(), divide(), mod() 메소드 사용
 		BigInteger x = new BigInteger("10");
 		System.out.println(big.add(x));
-		
-		
-		
 	}
 
 }
