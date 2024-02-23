@@ -18,7 +18,6 @@ public class WrapperMain01 {
 		System.out.println("int 타입의 최대값 : " + Integer.MAX_VALUE);
 		
 		System.out.println();
-		int n1 = 123;
 //		Integer num1 = new Integer(123);
 		Integer num1 = 123; // 할 수 있는 건 훨씬 강력하지만 무겁다.(마치 로켓)
 		System.out.println("num1 = " + num1);

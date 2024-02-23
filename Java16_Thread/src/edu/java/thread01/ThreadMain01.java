@@ -53,7 +53,7 @@ public class ThreadMain01 {
 		// 4. 생성된 인스턴스에서 start() 메소드를 호출 -> 쓰레드 실행
 		th1.start();
 
-		MyThread th2 = new MyThread("Hello");
+		MyThread th2 = new MyThread("자니?");
 		th2.start();
 
 		System.out.println("<< 메인 쓰레드 종료 >>");

@@ -41,7 +41,7 @@ public class StringMain04 {
 			System.out.println("정상적인 이메일입니다.");
 		}
 		
-		
+		sc.close();
 	} // end main()
 
 } // end StringMain04

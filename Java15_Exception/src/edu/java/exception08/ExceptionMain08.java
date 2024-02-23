@@ -19,6 +19,7 @@ public class ExceptionMain08 {
 				System.out.println("숫자가 아닙니다. : ");
 			}
 		}
+		sc.close();
 
 	} // end main()
 

@@ -47,7 +47,7 @@ public class InheritMain07 {
 		System.out.println(((ChildClass) class1).getY());
 		ChildClass c = (ChildClass) class1;
 		System.out.println(c.getY());
-		
+		class3.toString();
 		
 	} // end main()
 
