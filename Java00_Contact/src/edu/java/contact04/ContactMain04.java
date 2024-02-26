@@ -6,7 +6,7 @@ public class ContactMain04 {
 	private static Scanner sc;
 	private static ContactDAO dao; // ContactDAOImple 인스턴스를 저장할 변수
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		System.out.println("연락처 등록 메뉴");
 		sc = new Scanner(System.in);
@@ -15,7 +15,7 @@ public class ContactMain04 {
 
 		boolean run = true;
 		while (run) {
-			showMainMenu();
+			showMainMenu(); // 메소드가 어디서 어떤 메소드가 실행되는지 아는거 불가능
 			try {
 				int choice = sc.nextInt();
 				switch (choice) {
@@ -121,7 +121,7 @@ public class ContactMain04 {
 		String phone = sc.next();
 		System.out.println("이메일 입력>");
 		String email = sc.next();
-
+		
 		ContactDTO dto = new ContactDTO(name, phone, email);
 		dao.insert(dto);
 

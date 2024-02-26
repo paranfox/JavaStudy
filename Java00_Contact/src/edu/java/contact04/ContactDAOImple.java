@@ -8,17 +8,15 @@ public class ContactDAOImple implements ContactDAO {
 	private static ContactDAOImple instance = null;
 
 	// 2. private 생성자
-	private ContactDAOImple() {
+	private ContactDAOImple() throws Exception {
 		initDataDir();
 		initDataFile();
 	}
 
 	// 3. public static 메소드 - 인스턴스를 리턴하는 메소드 구현
-	public static ContactDAOImple getInstance() {
+	public static ContactDAOImple getInstance() throws Exception {
 		if (instance == null) {
-
 			instance = new ContactDAOImple();
-
 		}
 		return instance;
 	}
@@ -34,7 +32,7 @@ public class ContactDAOImple implements ContactDAO {
 	private File dataDir; // mkdir() : 디렉토리를 생성하는 메소드, 성공하면 true, 실패하면 false
 	private File dataFile; // mkdirs() : 상위디렉토리를 포함하여 생성하는 메소드.
 
-	// TODO : data 폴더가 있는지 검사하고, 없으면 생성하는 함수
+	// TODO : data 폴더가 있는지 검사하고, 없으면 생성하는 함수 "../data/contact.data"
 	private void initDataDir() {
 		dataDir = new File(DATA_DIR);
 
@@ -56,27 +54,26 @@ public class ContactDAOImple implements ContactDAO {
 	// TODO : 데이터 파일이 존재하는지 검사하고,
 	// 없는 경우 - 새로운 데이터 파일 생성
 	// 있는 경우 - 기존 파일에서 데이터를 읽어서 ArrayList에 추가
-	private void initDataFile() {
-		String filePath = DATA_DIR + File.separator + DATA_FILE;
+	private void initDataFile() throws Exception {
+		String filePath = DATA_DIR + File.separator + DATA_FILE; //"data/contact.data"
 		dataFile = new File(filePath);
 
 		if (!dataFile.exists()) {
 			System.out.println("파일이 없습니다.");
 
 			// createNewFile() : 새로운 빈 파일을 생성
-			try {
+			
 				if (dataFile.createNewFile()) {
 					System.out.println("파일 생성 성공");
 				} else {
 					System.out.println("파일 생성 실패");
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		} else {
 			System.out.println("파일이 이미 존재합니다.");
-			readDataFromFile();
+			if(dataFile.length() != 0) {
+				readDataFromFile();
+			}
 		}
 	} // end initDataFile()
 
@@ -86,7 +83,7 @@ public class ContactDAOImple implements ContactDAO {
 		OutputStream out = null;
 		BufferedOutputStream bout = null;
 		ObjectOutputStream oout = null;
-
+		
 		try {
 			out = new FileOutputStream(dataFile);
 			bout = new BufferedOutputStream(out);
@@ -166,11 +163,9 @@ public class ContactDAOImple implements ContactDAO {
 		writeDataToFile();
 		return 1;
 	}
-
 	@Override
-	public int delete(int index) {
+	public int delete(int index) { // 수박 겉할기
 		list.remove(index);
 		return 1;
 	}
-
 }
