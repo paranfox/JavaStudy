@@ -86,7 +86,7 @@ public class GuiMain07 {
 			}
 		});
 		btnNewButton.setBounds(173, 518, 97, 23);
-		frame.getContentPane().add(btnNewButton);
+		frame.getContentPane().add(btnNewButton); // frame안에 있는 pane객체를 가져오겠다는 뜻
 	}
 
 }
