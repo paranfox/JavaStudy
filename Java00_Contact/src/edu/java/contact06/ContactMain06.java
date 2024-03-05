@@ -81,7 +81,7 @@ public class ContactMain06 {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("연락처 프로그램 Version 0.5");
+		JLabel lblNewLabel = new JLabel("연락처 프로그램 Version 0.6");
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 34));
 		lblNewLabel.setBounds(12, 10, 461, 72);
 		frame.getContentPane().add(lblNewLabel);
@@ -237,7 +237,7 @@ public class ContactMain06 {
 			// 문자열을 숫자로 변환
 			int index = Integer.parseInt(indexst);
 
-			int count = ((ContactDAOImple) dao).getCount();
+			int count = ((ContactDAOImple) dao).getSize();
 			if (index >= 0 && index < count) {
 				int result = dao.delete(index);
 				if (result == 1) {
@@ -260,7 +260,7 @@ public class ContactMain06 {
 			// 문자열을 숫자로 변환
 			int index = Integer.parseInt(indexst);
 
-			int count = ((ContactDAOImple) dao).getCount();
+			int count = ((ContactDAOImple) dao).getSize();
 			if (index >= 0 && index < count) {
 				System.out.println("전화번호 입력>");
 				String phone = textPhone.getText();
@@ -297,16 +297,16 @@ public class ContactMain06 {
 			System.out.println(indexst);
 			// 문자열을 숫자로 변환
 			int index = Integer.parseInt(indexst);
-			int count = ((ContactDAOImple) dao).getCount();
+			int count = dao.select().size();
 
 			System.out.println(count);
 			if (index >= 0 && index < count) {
-				ContactDTO dto = dao.select(index - 1);
+				ContactDTO dto = dao.select(index);
 				String result = "--- 연락처 " + index + " ---" + "\n" + dto + "\n";
 				txtAreaInfo.append(result);
 
 			} else {
-				txtAreaLog.setText("0부터 " + (count - 1) + "까지만 입력하세요.");
+				txtAreaLog.setText("0부터 " + (count) + "까지만 입력하세요.");
 			}
 		} catch (NumberFormatException | IndexOutOfBoundsException e) {
 			txtAreaLog.setText("0 이상의 정수를 입력하세요.");
@@ -325,7 +325,7 @@ public class ContactMain06 {
 //				System.out.println(list.get(i));
 //								
 //			}
-		int size = ((ContactDAOImple) dao).getCount();
+		int size = ((ContactDAOImple) dao).getSize();
 		ArrayList<ContactDTO> list = dao.select();
 		StringBuffer buffer = new StringBuffer();
 		long startTime = System.currentTimeMillis();
@@ -363,7 +363,7 @@ public class ContactMain06 {
 		} else {
 			txtAreaLog.setText("등록에 실패했습니다." + "\n");
 		}
-		int count = dao.getCount();
+		int count = dao.getSize();
 		String result = "등록된 연락처 개수 : " + count + "\n" + "연락처 등록 완료" + "\n";
 		txtAreaLog.append(result);
 	} // end InsertMember()
@@ -375,7 +375,7 @@ public class ContactMain06 {
 	}
 
 	private static void VTxtAreaLog() {
-		int count = dao.getCount();
+		int count = dao.getSize();
 		String result = "등록된 연락처 개수 : " + count + "\n";
 		txtAreaLog.append(result);
 	} // end VTxtAreaLog()
@@ -395,7 +395,7 @@ public class ContactMain06 {
 		}
 
 	} // end selectAllContactTable()
-
+	
 	private void selectContactTable() {
 		model.setRowCount(0);
 		try {
@@ -404,8 +404,8 @@ public class ContactMain06 {
 			System.out.println(indexst);
 			// 문자열을 숫자로 변환
 			int index = Integer.parseInt(indexst);
-			int count = ((ContactDAOImple) dao).getCount();
-
+			int count = ((ContactDAOImple) dao).getSize();
+			
 			System.out.println(count);
 			if (index >= 0 && index < count) {
 				ContactDTO dto = dao.select(index);
@@ -414,7 +414,7 @@ public class ContactMain06 {
 				records[2] = dto.getPhone();
 				records[3] = dto.getEmail();
 				model.addRow(records);
-
+				
 			} else {
 				txtAreaLog.setText("0부터 " + (count - 1) + "까지만 입력하세요.");
 			}
