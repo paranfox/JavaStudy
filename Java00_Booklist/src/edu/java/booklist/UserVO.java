@@ -25,6 +25,11 @@ public class UserVO {
 		this.usergenser = usergenser;
 		this.userbirthdate = userbirthdate;
 	}
+	public UserVO(String userId, String userpassword, String username) {
+		this.userId = userId;
+		this.userpassword = userpassword;
+		this.username = username;
+	}
 	public int getUsercode() {
 		return usercode;
 	}

@@ -39,14 +39,15 @@ public class BookslistMain {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(600, 200, 811, 629);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(30, 31, 57, 15);
+		lblNewLabel.setBounds(36, 14, 57, 15);
 		frame.getContentPane().add(lblNewLabel);
 
 		JButton btnLogin = new JButton("로그인");
@@ -60,8 +61,19 @@ public class BookslistMain {
 //				frame.setVisible(false); // 메인 프레임을 안보이게
 			}
 		});
-		btnLogin.setBounds(45, 158, 97, 23);
+		btnLogin.setBounds(686, 10, 97, 23);
 		frame.getContentPane().add(btnLogin);
+		
+		JButton btnmembership = new JButton("회원가입");
+		btnmembership.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MembershipFrame membershipframe = new MembershipFrame(frame);
+				frame.setVisible(false);
+				membershipframe.setVisible(true);
+				
+			}
+		});
+		btnmembership.setBounds(577, 10, 97, 23);
+		frame.getContentPane().add(btnmembership);
 	}
-
 }

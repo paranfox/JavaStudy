@@ -1,15 +1,15 @@
 package edu.java.booklist;
 
-public class BookslistVO {
+public class BooklistVO {
 	// 멤버 변수(필드, 프로퍼티)
 	private int BookId; // 도서 인덱스
 	private String BookName; // 도서 이름
 	private int BookCategory; // 도서 카테고리
-	public BookslistVO() {
+	public BooklistVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BookslistVO(int bookId, String bookName, int bookCategory) {
+	public BooklistVO(int bookId, String bookName, int bookCategory) {
 		super();
 		BookId = bookId;
 		BookName = bookName;
