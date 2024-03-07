@@ -30,6 +30,13 @@ public class UserVO {
 		this.userpassword = userpassword;
 		this.username = username;
 	}
+	public UserVO(String userId, String userpassword) {
+		this.userId = userId;
+		this.userpassword = userpassword;
+	}
+	public UserVO(String userpassword) {
+		this.userpassword = userpassword;
+	}
 	public int getUsercode() {
 		return usercode;
 	}

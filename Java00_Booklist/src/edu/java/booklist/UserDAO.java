@@ -10,6 +10,9 @@ public interface UserDAO {
 	// 유저 정보 추가
 	public abstract int userinsert(UserVO vo);
 	
+	// 유저 로그인 확인
+	public abstract int usercheck(UserVO vo);
+	
 	// 유저 정보 검색
 	public abstract UserVO userselect();
 	

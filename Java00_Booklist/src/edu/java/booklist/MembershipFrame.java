@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MembershipFrame extends JFrame {
+public class MembershipFrame extends JFrame implements USE_FRAME_CODE {
 
 	private static JPanel contentPane;
 	private static JTextField textName;
@@ -24,17 +24,14 @@ public class MembershipFrame extends JFrame {
 	private static UserDAOImple userdao; // UserDAOImple 인스턴스 생성
 
 	
-	public MembershipFrame(JFrame frame) {
+	public MembershipFrame() {
 		try {
 			userdao = UserDAOImple.getInstance();
 		} catch (Exception e) {
 
 		} // 다형성. 싱글톤 인스턴스 생성
 		
-		int lblWidth = 137; // 레이블 넓이
-		int lblHeight = 42; // 레이블 높이
-		
-		setBounds(800, 300, 454, 349);
+		setBounds(setBounds_Width, setBounds_Height, 454, 349);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.textHighlightText);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -42,7 +39,7 @@ public class MembershipFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		textName = new JTextField();
-		textName.setBounds(244, 34, lblWidth, lblHeight);
+		textName.setBounds(244, 34, lbl_Width, lbl_Height);
 		contentPane.add(textName);
 		textName.setColumns(10);
 		
@@ -61,7 +58,7 @@ public class MembershipFrame extends JFrame {
 		lblName.setFont(new Font("굴림", Font.BOLD, 27));
 		lblName.setBackground(Color.CYAN);
 		lblName.setOpaque(true);
-		lblName.setBounds(46, 34, lblWidth, lblHeight);
+		lblName.setBounds(46, 34, lbl_Width, lbl_Height);
 		contentPane.add(lblName);
 		
 		JLabel lblId = new JLabel("아이디");
@@ -69,7 +66,7 @@ public class MembershipFrame extends JFrame {
 		lblId.setFont(new Font("굴림", Font.BOLD, 27));
 		lblId.setBackground(Color.CYAN);
 		lblId.setOpaque(true);
-		lblId.setBounds(46, 100, lblWidth, lblHeight);
+		lblId.setBounds(46, 100, lbl_Width, lbl_Height);
 		contentPane.add(lblId);
 		
 		JLabel lblPassword = new JLabel("비밀번호");
@@ -77,7 +74,7 @@ public class MembershipFrame extends JFrame {
 		lblPassword.setFont(new Font("굴림", Font.BOLD, 27));
 		lblPassword.setBackground(Color.CYAN);
 		lblPassword.setOpaque(true);
-		lblPassword.setBounds(46, 171, lblWidth, lblHeight);
+		lblPassword.setBounds(46, 171, lbl_Width, lbl_Height);
 		contentPane.add(lblPassword);
 		
 		
@@ -89,7 +86,7 @@ public class MembershipFrame extends JFrame {
 				if(check == 1) {
 					dispose();
 //					System.exit(0); 화면 전체 종료
-					NewMembership newmembership = new NewMembership(frame);
+					NewMembership newmembership = new NewMembership();
 					newmembership.setVisible(true);
 				} else {
 					return;

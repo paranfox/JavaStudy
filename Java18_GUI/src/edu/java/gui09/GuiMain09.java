@@ -80,6 +80,7 @@ public class GuiMain09 {
 			public void actionPerformed(ActionEvent e) {
 				String result = "음악 : " + chckbxMusic.isSelected() + "\n" + "영화 : " + chckbxMovie.isSelected() + "\n" + "독서 : " +chckbxReading.isSelected() + "\n";
 				textArea.setText(result);
+				
 			}
 		});
 		btnOutput.setBounds(325, 6, 97, 23);

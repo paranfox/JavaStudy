@@ -62,6 +62,7 @@ public class JDBCMain07 {
 
 			if (rs.next()) {
 				contactId = rs.getInt(1); // COMTACT_ID 컬럼
+				System.out.println(contactId);
 				String name = rs.getString(2); // NAME 컬럼
 				String phone = rs.getString(3); // PHONE 컬럼
 				String email = rs.getString(4); // EMAIL 컬럼
