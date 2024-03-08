@@ -25,5 +25,7 @@ public interface UserDAO {
 	// 유저 전체 대여 상황
 	public abstract ArrayList<BooklistVO> userbookallselect();
 	
+	// 유저 이름 찾기
+	public String username(String user_id);
 	
 } // end UserDAO

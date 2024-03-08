@@ -12,8 +12,8 @@ public class AdminFrame extends JFrame {
 
 	private JPanel contentPane;
 
-	private static UserDAOImple userdao; // UserDAOImple 인스턴스 생성
-	private static BookserviceDAOImple bookservicedao; // BookserviceDAOImple 인스턴스 생성
+	private static UserDAO userdao; // UserDAOImple 인스턴스 생성
+	private static BookserviceDAO bookservicedao; // BookserviceDAOImple 인스턴스 생성
 	
 	private static JTextField textbookname;
 	private static JTextField textbookserch;
@@ -31,9 +31,14 @@ public class AdminFrame extends JFrame {
 	private static DefaultTableModel model; // 테이블 형태를 만들 변수
 	private static JTable table;
 
+	
 	public AdminFrame(String user_id) {
+		
+		
+		
 		try {
 			userdao = UserDAOImple.getInstance();
+			bookservicedao = BookserviceDAOImple.getInstance();
 		} catch (Exception e) {
 
 		} // 다형성. 싱글톤 인스턴스 생성
@@ -43,10 +48,10 @@ public class AdminFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		JMenu mnNewMenu = new JMenu("New menu");
+		JMenu mnNewMenu = new JMenu("menu");
 		menuBar.add(mnNewMenu);
 
-		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
+		JMenuItem mntmNewMenuItem = new JMenuItem("");
 		mnNewMenu.add(mntmNewMenuItem);
 
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("New menu item");
@@ -148,6 +153,11 @@ public class AdminFrame extends JFrame {
 		contentPane.add(textuaername);
 
 		JButton btnfinduser = new JButton("찾기");
+		btnfinduser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectAllContactTable();
+			}
+		});
 		btnfinduser.setBounds(656, 96, 97, 23);
 		contentPane.add(btnfinduser);
 
@@ -256,21 +266,27 @@ public class AdminFrame extends JFrame {
 	} // end searchbookusername()
 	
 	private static void selectAllContactTable() {
-		ArrayList<BooklistVO> list = bookservicedao.bookallselect();
+		ArrayList<BookTableVO> list = bookservicedao.bookallselect();
+		
 		System.out.println(list);
 		model.setRowCount(0);
 		System.out.println(list.size());
 		for (int i = 0; i < list.size(); i++) {
-
-			records[0] = i + 1;
-			records[1] = list.get(i);
-			records[2] = list.get(i);
-			records[3] = list.get(i);
-			records[4] = list.get(i);
+			records[0] = list.get(i).getBookname();
+			records[1] = list.get(i).getUserid();
+			records[2] = list.get(i).getBookserviceouttime();
+			if(list.get(i).getBookserviceinout().equals("대여")) {
+				records[3] = "대여중";				
+			} else if ((list.get(i).getBookserviceinout().equals("반납"))) {
+				records[3] = "반납";
+			} else {
+				records[3] = "보관중";
+				
+			}
+			
+			records[4] = list.get(i).getBookserviceintime();
 			model.addRow(records);
 		}
 
 	} // end selectAllContactTable()
-	
-
 } // end AdminFrame

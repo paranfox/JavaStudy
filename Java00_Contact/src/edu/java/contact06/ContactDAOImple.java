@@ -121,6 +121,7 @@ public class ContactDAOImple implements ContactDAO, OracleQuery {
 			try {
 				conn.close();
 				pstmt.close();
+				rs.close();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -131,7 +131,6 @@ public class UserDAOImple implements UserDAO, OracleQuery {
 			if (rs.next()) {
 				System.out.println("성공");
 				String userpassword = rs.getString(4); // COMTACT_ID 컬럼
-
 				System.out.println(vo.getUserpassword());
 				if (userpassword.equals(vo.getUserpassword())) {
 					System.out.println("로그인 성공");
@@ -155,7 +154,7 @@ public class UserDAOImple implements UserDAO, OracleQuery {
 
 		return result;
 	} // end usercheck()
-
+@Override
 	public String username(String user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

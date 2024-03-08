@@ -19,7 +19,7 @@ public interface BookserviceDAO { //도서 대여/관리 기능 메서드 정의
 	public abstract int bookoutuser(int index);
 	
 	// 도서 전체 정보
-	public abstract ArrayList<BooklistVO> bookallselect();
+	public abstract ArrayList<BookTableVO> bookallselect();
 	
 		
 } // end BookserviceDAO
