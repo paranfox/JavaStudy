@@ -2,7 +2,7 @@ package edu.java.booklist;
 
 import java.sql.Date;
 
-public class BookTableVO {
+public class BookTableVO { 
 
 	String bookname ; // COMTACT_ID 컬럼
 	String userid ; // COMTACT_ID 컬럼

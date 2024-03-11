@@ -2,7 +2,7 @@ package edu.java.booklist;
 
 import java.util.*;
 
-public class UserVO {
+public class UserVO { 
 	private int usercode; 		// 유저 인덱스
 	private String userId; 		// 유저 아이디
 	private String userpassword;// 유저 비밀번호

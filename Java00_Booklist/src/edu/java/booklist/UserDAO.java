@@ -2,7 +2,7 @@ package edu.java.booklist;
 
 import java.util.ArrayList;
 
-public interface UserDAO {
+public interface UserDAO { 
 //	UserDAO.java : DAO Interface. 유저 관리 기능 메서드 정의
 //	UserDAOImple.java
 //	: DAO Implement 클래스. 유저 관리 기능 메서드 구현

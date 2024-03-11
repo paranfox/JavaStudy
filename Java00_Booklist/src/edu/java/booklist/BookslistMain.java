@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class BookslistMain {
+public class BookslistMain { 
 
 	private JFrame frame;
 

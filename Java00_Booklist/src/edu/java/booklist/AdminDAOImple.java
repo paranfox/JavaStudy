@@ -2,7 +2,7 @@ package edu.java.booklist;
 
 import java.util.ArrayList;
 
-public class AdminDAOImple implements AdminDAO {
+public class AdminDAOImple implements AdminDAO { 
 	// 1. private static 자기 자신 타입의 변수 선언
 	private static AdminDAOImple instance = null;
 

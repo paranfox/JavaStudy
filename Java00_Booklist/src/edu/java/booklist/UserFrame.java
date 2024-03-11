@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
-public class UserFrame extends JFrame {
+public class UserFrame extends JFrame { 
 
 	private JPanel contentPane;
 	

@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class LoginFrame extends JFrame implements USE_FRAME_CODE {
+public class LoginFrame extends JFrame implements USE_FRAME_CODE { 
 
 	private JPanel contentPane;
 	private static JTextField textId;

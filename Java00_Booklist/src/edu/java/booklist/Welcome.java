@@ -23,7 +23,7 @@ public class Welcome extends JFrame implements USE_FRAME_CODE {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+		 
 		JButton btnmain = new JButton("로그인 되셨습니다!");
 		btnmain.addActionListener(new ActionListener() {
 

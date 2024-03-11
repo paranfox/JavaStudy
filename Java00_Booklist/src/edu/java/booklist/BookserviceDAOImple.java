@@ -12,7 +12,7 @@ import java.util.List;
 import oracle.jdbc.driver.OracleDriver;
 
 public class BookserviceDAOImple implements BookserviceDAO, OracleQuery {
-	// 1. private static 자기 자신 타입의 변수 선언
+	// 1. private static 자기 자신 타입의 변수 선언 
 	private static BookserviceDAOImple instance = null;
 
 	// 2. private 생성자

@@ -4,7 +4,7 @@ public class BookserviceVO {
 	private int BookServiceInout; // 도서 대여상태
 	private String BookServiceOuttime; // 도서 대여시간
 	private String BookServiceIntime; // 도서 반납시간
-	public BookserviceVO() {
+	public BookserviceVO() { 
 		super();
 		// TODO Auto-generated constructor stub
 	}

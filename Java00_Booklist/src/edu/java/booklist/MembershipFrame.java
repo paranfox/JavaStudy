@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MembershipFrame extends JFrame implements USE_FRAME_CODE {
+public class MembershipFrame extends JFrame implements USE_FRAME_CODE { 
 
 	private static JPanel contentPane;
 	private static JTextField textName;

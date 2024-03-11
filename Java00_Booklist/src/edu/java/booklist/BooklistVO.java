@@ -1,6 +1,6 @@
 package edu.java.booklist;
 
-public class BooklistVO {
+public class BooklistVO { 
 	// 멤버 변수(필드, 프로퍼티)
 	private int BookId; // 도서 인덱스
 	private String BookName; // 도서 이름

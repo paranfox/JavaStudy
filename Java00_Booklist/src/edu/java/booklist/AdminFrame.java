@@ -10,7 +10,7 @@ import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
 
 public class AdminFrame extends JFrame {
-
+ 
 	private JPanel contentPane;
 
 	private static UserDAO userdao; // UserDAOImple 인스턴스 생성

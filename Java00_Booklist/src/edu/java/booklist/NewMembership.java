@@ -11,7 +11,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class NewMembership extends JFrame implements USE_FRAME_CODE {
+public class NewMembership extends JFrame implements USE_FRAME_CODE { 
 
 	private JPanel contentPane;
 	
@@ -22,7 +22,7 @@ public class NewMembership extends JFrame implements USE_FRAME_CODE {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+		 
 		JButton btnmain = new JButton("회원가입을 축하합니다.");
 		btnmain.addActionListener(new ActionListener() {
 

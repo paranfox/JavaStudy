@@ -1,7 +1,7 @@
 package edu.java.booklist;
 
 //JDBC에서 DB 접속에 사용될 상수들, SQL 문장들 정의
-public interface OracleQuery {
+public interface OracleQuery { 
 	public static final String URL = "jdbc:oracle:thin:@localhost:1521:xe"; // 접속할 오라클 DB 경로
 	public static final String USER = "scott";
 	public static final String PASSWORD = "tiger";

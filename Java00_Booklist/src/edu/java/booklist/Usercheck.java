@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 public class Usercheck extends JDialog implements USE_FRAME_CODE {
 
 	private final JPanel contentPanel = new JPanel();
-
+ 
 	
 	public Usercheck() {
 		setModal(true);

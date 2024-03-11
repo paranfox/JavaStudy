@@ -7,7 +7,7 @@ public class BookslistDAOImple implements BooklistDAO {
 	private static BookslistDAOImple instance = null;
 
 	// 2. private 생성자
-	private BookslistDAOImple() {
+	private BookslistDAOImple() { 
 	}
 
 	// 3. public static 메소드 - 인스턴스를 리턴하는 메소드 구현
