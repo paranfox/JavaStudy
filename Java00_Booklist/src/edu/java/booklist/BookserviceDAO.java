@@ -21,5 +21,14 @@ public interface BookserviceDAO { //도서 대여/관리 기능 메서드 정의
 	// 도서 전체 정보
 	public abstract ArrayList<BookTableVO> bookallselect();
 	
+	// 도서명과 회원명으로 정보 찾기 
+	public abstract ArrayList<BookTableVO> searchbookusername(String serch);
+	
+	// 도서명으로 정보 찾기
+	public abstract ArrayList<BookTableVO> searchbookname(String serch);
+	
+	// 회원명으로 정보 찾기
+	public abstract ArrayList<BookTableVO> searchusername(String serch);
+	
 		
 } // end BookserviceDAO

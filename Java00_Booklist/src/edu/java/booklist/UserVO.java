@@ -1,5 +1,7 @@
 package edu.java.booklist;
 
+import java.util.*;
+
 public class UserVO {
 	private int usercode; 		// 유저 인덱스
 	private String userId; 		// 유저 아이디
@@ -7,36 +9,46 @@ public class UserVO {
 	private String username;	// 유저 이름
 	private String userphone;	// 유저 전화번호
 	private String useremail; 	// 유저 이메일
-	private String usergenser; 	// 유저 성별
-	private String userbirthdate;// 유저 생년월일
+	private String usergender; 	// 유저 성별
+	private Date userbirthdate;// 유저 생년월일
+	
 	public UserVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UserVO(int usercode, String userId, String userpassword, String username, String userphone, String useremail,
-			String usergenser, String userbirthdate) {
+	public UserVO(String username, String userId, String userpassword, String userphone, String useremail,
+			String usergender, Date userbirthdate) {
 		super();
-		this.usercode = usercode;
 		this.userId = userId;
 		this.userpassword = userpassword;
 		this.username = username;
 		this.userphone = userphone;
 		this.useremail = useremail;
-		this.usergenser = usergenser;
+		this.usergender = usergender;
 		this.userbirthdate = userbirthdate;
 	}
+	
 	public UserVO(String userId, String userpassword, String username) {
 		this.userId = userId;
 		this.userpassword = userpassword;
 		this.username = username;
 	}
+	
 	public UserVO(String userId, String userpassword) {
 		this.userId = userId;
 		this.userpassword = userpassword;
 	}
+	
 	public UserVO(String userpassword) {
 		this.userpassword = userpassword;
 	}
+	
+	public UserVO (String username, String userphone, Date userbirthdate) {
+		this.username = username;
+		this.userphone = userphone;
+		this.userbirthdate = userbirthdate;
+	}
+	
 	public int getUsercode() {
 		return usercode;
 	}
@@ -74,21 +86,21 @@ public class UserVO {
 		this.useremail = useremail;
 	}
 	public String getUsergenser() {
-		return usergenser;
+		return usergender;
 	}
-	public void setUsergenser(String usergenser) {
-		this.usergenser = usergenser;
+	public void setUsergenser(String usergender) {
+		this.usergender = usergender;
 	}
-	public String getUserbirthdate() {
+	public Date getUserbirthdate() {
 		return userbirthdate;
 	}
-	public void setUserbirthdate(String userbirthdate) {
+	public void setUserbirthdate(Date userbirthdate) {
 		this.userbirthdate = userbirthdate;
 	}
 	@Override
 	public String toString() {
 		return "UserVO [usercode=" + usercode + ", userId=" + userId + ", userpassword=" + userpassword + ", username="
-				+ username + ", userphone=" + userphone + ", useremail=" + useremail + ", usergenser=" + usergenser
+				+ username + ", userphone=" + userphone + ", useremail=" + useremail + ", usergender=" + usergender
 				+ ", userbirthdate=" + userbirthdate + "]";
 	}
 	

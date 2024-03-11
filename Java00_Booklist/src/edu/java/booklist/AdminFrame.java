@@ -2,6 +2,7 @@ package edu.java.booklist;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class AdminFrame extends JFrame {
 
 	private static UserDAO userdao; // UserDAOImple 인스턴스 생성
 	private static BookserviceDAO bookservicedao; // BookserviceDAOImple 인스턴스 생성
-	
+
 	private static JTextField textbookname;
 	private static JTextField textbookserch;
 	private static JTextField textuaername;
@@ -24,18 +25,21 @@ public class AdminFrame extends JFrame {
 	private static JTextField textfindbookname;
 	private static JTextField textbookwriter;
 	private static JTextField textbookprice;
-	
 
 	private static String[] header = { "도서제목", "회원명", "대출일자", "상태", "반납날짜" };
 	private static Object[] records = new Object[header.length];
 	private static DefaultTableModel model; // 테이블 형태를 만들 변수
 	private static JTable table;
 
-	
+	// 이건 이클립스 경고 메세지를 없애기 위한 버전
+	private static final long serialVersionUID = 1L;
+	// 이미지를 저장할 apple과 가로 길이의 w, 세로 길이의 h
+	private Image apple;
+	private int w;
+	private int h;
+
 	public AdminFrame(String user_id) {
-		
-		
-		
+
 		try {
 			userdao = UserDAOImple.getInstance();
 			bookservicedao = BookserviceDAOImple.getInstance();
@@ -51,11 +55,17 @@ public class AdminFrame extends JFrame {
 		JMenu mnNewMenu = new JMenu("menu");
 		menuBar.add(mnNewMenu);
 
-		JMenuItem mntmNewMenuItem = new JMenuItem("");
-		mnNewMenu.add(mntmNewMenuItem);
+		JMenuItem mntmbook = new JMenuItem("책관리");
+		mnNewMenu.add(mntmbook);
 
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("New menu item");
-		mnNewMenu.add(mntmNewMenuItem_1);
+		JMenuItem mntmuser = new JMenuItem("유저관리");
+		mntmuser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminsearchUser adminsearchUser = new AdminsearchUser();
+				adminsearchUser.setVisible(true);
+			}
+		});
+		mnNewMenu.add(mntmuser);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -117,14 +127,10 @@ public class AdminFrame extends JFrame {
 		textbookserch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (chckbxbookname.isSelected() && chckbxusername.isSelected()) { // 도서제목과 회원명 찾기
-					textbookserch.setText("도서제목과 회원명");
-					selectAllContactTable();
 					searchbookusername();
 				} else if (chckbxusername.isSelected()) { // 회원명 찾기
-					textbookserch.setText("회원명");
 					searchusername();
 				} else if (chckbxbookname.isSelected()) { // 도서제목 찾기
-					textbookserch.setText("도서제목");
 					searchbookname();
 				} else {
 					textbookserch.setText("도서제목이나 회원명을 눌러주세요~");
@@ -152,22 +158,24 @@ public class AdminFrame extends JFrame {
 		textuaername.setBounds(540, 97, 106, 21);
 		contentPane.add(textuaername);
 
+		JLabel lblUserPicture = new JLabel("사진");
+		lblUserPicture.setBounds(461, 125, 133, 165);
+		contentPane.add(lblUserPicture);
+
+		JLabel lblBookPicture = new JLabel("사진");
+		lblBookPicture.setBounds(461, 353, 133, 165);
+		contentPane.add(lblBookPicture);
+
 		JButton btnfinduser = new JButton("찾기");
 		btnfinduser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectAllContactTable();
+				ImageIcon userimage = new ImageIcon("image/john1.avif");
+				lblUserPicture.setIcon(userimage);
+				selectUser();
 			}
 		});
 		btnfinduser.setBounds(656, 96, 97, 23);
 		contentPane.add(btnfinduser);
-
-		JLabel lblNewLabel_2 = new JLabel("사진");
-		lblNewLabel_2.setBounds(461, 125, 133, 165);
-		contentPane.add(lblNewLabel_2);
-
-		JLabel lblNewLabel_2_1 = new JLabel("사진");
-		lblNewLabel_2_1.setBounds(461, 353, 133, 165);
-		contentPane.add(lblNewLabel_2_1);
 
 		JLabel lblusername = new JLabel("이름");
 		lblusername.setBounds(598, 128, 57, 15);
@@ -248,26 +256,13 @@ public class AdminFrame extends JFrame {
 		table.setFont(new Font("굴림", Font.PLAIN, 15));
 
 		scrollPane.setViewportView(table);
-		
+		selectAllContactTable();
 	} // end AdminFrame()
 
 	private void searchbookname() {
+		String serch = textbookserch.getText();
+		ArrayList<BookTableVO> list = bookservicedao.searchbookname(serch);
 
-	} // end searchbookname()
-
-	private void searchusername() {
-		// TODO Auto-generated method stub
-
-	} // end searchusername()
-
-	private void searchbookusername() {
-		// TODO Auto-generated method stub
-
-	} // end searchbookusername()
-	
-	private static void selectAllContactTable() {
-		ArrayList<BookTableVO> list = bookservicedao.bookallselect();
-		
 		System.out.println(list);
 		model.setRowCount(0);
 		System.out.println(list.size());
@@ -275,18 +270,109 @@ public class AdminFrame extends JFrame {
 			records[0] = list.get(i).getBookname();
 			records[1] = list.get(i).getUserid();
 			records[2] = list.get(i).getBookserviceouttime();
-			if(list.get(i).getBookserviceinout().equals("대여")) {
-				records[3] = "대여중";				
+			if (list.get(i).getBookserviceinout().equals("대여")) {
+				records[3] = "대여중";
 			} else if ((list.get(i).getBookserviceinout().equals("반납"))) {
 				records[3] = "반납";
 			} else {
 				records[3] = "보관중";
-				
+
 			}
-			
+
+			records[4] = list.get(i).getBookserviceintime();
+			model.addRow(records);
+		}
+
+	} // end searchbookname()
+
+	private void searchusername() {
+		String serch = textbookserch.getText();
+		ArrayList<BookTableVO> list = bookservicedao.searchusername(serch);
+
+		System.out.println(list);
+		model.setRowCount(0);
+		System.out.println(list.size());
+		for (int i = 0; i < list.size(); i++) {
+			records[0] = list.get(i).getBookname();
+			records[1] = list.get(i).getUserid();
+			records[2] = list.get(i).getBookserviceouttime();
+			if (list.get(i).getBookserviceinout().equals("대여")) {
+				records[3] = "대여중";
+			} else if ((list.get(i).getBookserviceinout().equals("반납"))) {
+				records[3] = "반납";
+			} else {
+				records[3] = "보관중";
+
+			}
+
+			records[4] = list.get(i).getBookserviceintime();
+			model.addRow(records);
+		}
+
+	} // end searchusername()
+
+	private void searchbookusername() {
+		String serch = textbookserch.getText();
+		ArrayList<BookTableVO> list = bookservicedao.searchbookusername(serch);
+
+		System.out.println(list);
+		model.setRowCount(0);
+		System.out.println(list.size());
+		for (int i = 0; i < list.size(); i++) {
+			records[0] = list.get(i).getBookname();
+			records[1] = list.get(i).getUserid();
+			records[2] = list.get(i).getBookserviceouttime();
+			if (list.get(i).getBookserviceinout().equals("대여")) {
+				records[3] = "대여중";
+			} else if ((list.get(i).getBookserviceinout().equals("반납"))) {
+				records[3] = "반납";
+			} else {
+				records[3] = "보관중";
+
+			}
+
+			records[4] = list.get(i).getBookserviceintime();
+			model.addRow(records);
+		}
+
+	} // end searchbookusername()
+
+	private static void selectAllContactTable() {
+		ArrayList<BookTableVO> list = bookservicedao.bookallselect();
+
+		System.out.println(list);
+		model.setRowCount(0);
+		System.out.println(list.size());
+		for (int i = 0; i < list.size(); i++) {
+			records[0] = list.get(i).getBookname().isBlank();
+			records[1] = list.get(i).getUserid();
+			records[2] = list.get(i).getBookserviceouttime();
+			if (list.get(i).getBookserviceinout().equals("대여")) {
+				records[3] = "대여중";
+			} else if ((list.get(i).getBookserviceinout().equals("반납"))) {
+				records[3] = "반납";
+			} else {
+				records[3] = "보관중";
+			}
 			records[4] = list.get(i).getBookserviceintime();
 			model.addRow(records);
 		}
 
 	} // end selectAllContactTable()
+
+	private static void selectUser() {
+		String username = textuaername.getText();
+		UserVO uservo = userdao.userselect(username);
+		textusername.setText(uservo.getUsername());
+		if (uservo.getUserbirthdate() == null) {
+			textuserbirth.setText("아직 생일을 입력하지 않았습니다");
+		} else {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			String str = format.format(uservo.getUserbirthdate());
+			textuserbirth.setText(str);
+		}
+		textuserphone.setText(uservo.getUserphone());
+
+	} // end selectUser()
+
 } // end AdminFrame

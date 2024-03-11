@@ -14,7 +14,7 @@ public interface UserDAO {
 	public abstract int usercheck(UserVO vo);
 	
 	// 유저 정보 검색
-	public abstract UserVO userselect();
+	public abstract UserVO userselect(String name);
 	
 	// 유저 정보 수정
 	public abstract int userupdate(int index, UserVO vo);
@@ -27,5 +27,8 @@ public interface UserDAO {
 	
 	// 유저 이름 찾기
 	public String username(String user_id);
+	
+	// 관리자 유저 넣기(테스트)
+	public int userinsert2(UserVO vo);
 	
 } // end UserDAO

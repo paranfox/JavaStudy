@@ -63,7 +63,6 @@ public class ContactMain06 {
 			}
 		});
 	} // end main()
-
 	/**
 	 * Create the application.
 	 */
