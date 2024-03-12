@@ -13,9 +13,8 @@ public class BookslistMain {
 
 	private JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -71,5 +70,6 @@ public class BookslistMain {
 		});
 		btnmembership.setBounds(26, 21, 97, 23);
 		frame.getContentPane().add(btnmembership);
+		        
 	}
 }

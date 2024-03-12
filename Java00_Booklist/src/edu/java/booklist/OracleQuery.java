@@ -25,7 +25,9 @@ public interface OracleQuery {
 	public static final String COL_BOOK_ID = "BOOK_ID";
 	public static final String COL_BOOK_NAME = "BOOK_NAME";
 	public static final String COL_BOOK_CATEGORY_ID = "BOOK_CATEGORY_ID";
-
+	public static final String COL_BOOK_WRITER = "BOOK_WRITER";
+	public static final String COL_BOOK_PRICE = "BOOK_PRICE";
+	
 	public static final String TABLE_BOOKSERVICE = "BOOKSERVICE";
 	public static final String COL_BOOK_CATEGORY = "BOOK_CATEGORY";
 //	public static final String COL_FK_USER_CODE = "USER_CODE";  어떤 태리클에 외래키로 잡음
@@ -48,6 +50,12 @@ public interface OracleQuery {
 	public static final String COL_BOOK_SERVICE_BS_BOOK_SERVICE_INOUT = "BS.BOOK_SERVICE_INOUT";
 	public static final String COL_BOOK_SERVICE_BS_BOOK_SERVICE_INTIME = "BS.BOOK_SERVICE_INTIME";
 
+	// 유저와 관리자 따로 로그인 기능
+	public static final String SQL_SELETE_USER_ADMIN = "SELECT " + COL_ADMIN_ID + " FROM " + TABLE_ADMIN + " WHERE " + COL_ADMIN_ID + " = ?";
+	
+	// 관리자 로그인
+	public static final String SQL_ADMIN_CHECK = "SELECT * FROM " + TABLE_ADMIN + " WHERE " + COL_ADMIN_ID + " = ?";
+	
 	// 유저 회원가입
 	public static final String SQL_USER_INSERT = "INSERT INTO " + TABLE_USERS + " ( " + COL_USER_CODE + " , "
 			+ COL_USER_ID + " , " + COL_USER_PASSWORD + " , " + COL_USER_NAME + " ) "
@@ -98,8 +106,8 @@ public interface OracleQuery {
 	// 유저 이름으로 유저 정보 찾기
 	public static final String SQL_BOOKSERVISE_USERNAME = "SELECT * FROM " + TABLE_USERS + " WHERE " + COL_USER_NAME + " = ?";
 	
-	// 책에 관
-	public static final String SQL_DELETE2 = "";
+	// 책 이름으로 책 정보 찾기
+	public static final String SQL_BOOKSERVISE_BOOKNAME = "SELECT * FROM " + TABLE_BOOKLIST + " WHERE " + COL_BOOK_NAME + " = ?";
 	
 	// 책에 관
 	public static final String SQL_DELETE3 = "";

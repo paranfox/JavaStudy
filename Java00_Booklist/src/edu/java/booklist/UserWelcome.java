@@ -11,12 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class Welcome extends JFrame implements USE_FRAME_CODE {
+public class UserWelcome extends JFrame implements USE_FRAME_CODE {
 
 	private JPanel contentPane;
-
 	
-	public Welcome(String user_id) {
+	public UserWelcome(String user_id) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(setBounds_Width, setBounds_Height, 450, 300);
 		contentPane = new JPanel();
@@ -28,14 +27,13 @@ public class Welcome extends JFrame implements USE_FRAME_CODE {
 		btnmain.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				AdminFrame adminframe = new AdminFrame(user_id);
-				adminframe.setVisible(true);
+				UserFrame userframe = new UserFrame(user_id);
+				userframe.setVisible(true);
 				dispose();
 			}
 		});
 		btnmain.setFont(new Font("굴림", Font.BOLD, 30));
 		contentPane.add(btnmain, BorderLayout.CENTER);
-		
-	} // end Welcome
+	} // end UserWelcome()
 
 }

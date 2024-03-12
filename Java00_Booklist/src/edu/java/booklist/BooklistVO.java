@@ -5,6 +5,9 @@ public class BooklistVO {
 	private int BookId; // 도서 인덱스
 	private String BookName; // 도서 이름
 	private int BookCategory; // 도서 카테고리
+	private String BookWriter; // 도서 저자
+	private int BookPrice; // 도서 가격
+	
 	public BooklistVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -14,6 +17,11 @@ public class BooklistVO {
 		BookId = bookId;
 		BookName = bookName;
 		BookCategory = bookCategory;
+	}
+	public BooklistVO(String BookName, String BookWriter, int BookPrice) {
+		this.BookName = BookName;
+		this.BookWriter = BookWriter;
+		this.BookPrice = BookPrice;
 	}
 	public int getBookId() {
 		return BookId;
@@ -32,6 +40,18 @@ public class BooklistVO {
 	}
 	public void setBookCategory(int bookCategory) {
 		BookCategory = bookCategory;
+	}
+	public String getBookWriter() {
+		return BookWriter;
+	}
+	public void setBookWriter(String bookWriter) {
+		BookWriter = bookWriter;
+	}
+	public int getBookPrice() {
+		return BookPrice;
+	}
+	public void setBookPrice(int bookPrice) {
+		BookPrice = bookPrice;
 	}
 	@Override
 	public String toString() {

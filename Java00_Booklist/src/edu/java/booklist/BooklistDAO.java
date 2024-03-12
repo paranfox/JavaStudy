@@ -7,6 +7,6 @@ public interface BooklistDAO {
 		public abstract ArrayList<AdminVO> bookselect();
 		
 		// 도서 인덱스 검색
-		public abstract BooklistVO bookselect(int index);
+		public abstract BooklistVO bookselect(String bookname);
 		
 }

@@ -10,11 +10,12 @@ import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
 
 public class AdminFrame extends JFrame {
- 
+
 	private JPanel contentPane;
 
-	private static UserDAO userdao; // UserDAOImple 인스턴스 생성
-	private static BookserviceDAO bookservicedao; // BookserviceDAOImple 인스턴스 생성
+	private static UserDAO userdao; // UserDAO 인스턴스 생성
+	private static BookserviceDAO bookservicedao; // BookserviceDAO 인스턴스 생성
+	private static BooklistDAO booklistdao; // BooklistDAO 인스턴스 생성
 
 	private static JTextField textbookname;
 	private static JTextField textbookserch;
@@ -43,6 +44,7 @@ public class AdminFrame extends JFrame {
 		try {
 			userdao = UserDAOImple.getInstance();
 			bookservicedao = BookserviceDAOImple.getInstance();
+			booklistdao = BooklistDAOImple.getInstance();
 		} catch (Exception e) {
 
 		} // 다형성. 싱글톤 인스턴스 생성
@@ -96,6 +98,12 @@ public class AdminFrame extends JFrame {
 		contentPane.add(lblbooklook);
 
 		JButton btnfindbook = new JButton("검색");
+		btnfindbook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				findbook();
+			}
+
+		});
 		btnfindbook.setBounds(658, 324, 97, 23);
 		contentPane.add(btnfindbook);
 
@@ -169,8 +177,8 @@ public class AdminFrame extends JFrame {
 		JButton btnfinduser = new JButton("찾기");
 		btnfinduser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ImageIcon userimage = new ImageIcon("image/john1.avif");
-				lblUserPicture.setIcon(userimage);
+				ImageIcon IMAGE_ICONS = new ImageIcon("img/book1.jpg");
+				lblUserPicture.setIcon(IMAGE_ICONS);
 				selectUser();
 			}
 		});
@@ -182,6 +190,7 @@ public class AdminFrame extends JFrame {
 		contentPane.add(lblusername);
 
 		textusername = new JTextField();
+		textusername.setEditable(false);
 		textusername.setBounds(598, 153, 143, 21);
 		contentPane.add(textusername);
 		textusername.setColumns(10);
@@ -191,6 +200,7 @@ public class AdminFrame extends JFrame {
 		contentPane.add(lbluserbirth);
 
 		textuserbirth = new JTextField();
+		textuserbirth.setEditable(false);
 		textuserbirth.setColumns(10);
 		textuserbirth.setBounds(598, 209, 143, 21);
 		contentPane.add(textuserbirth);
@@ -200,6 +210,7 @@ public class AdminFrame extends JFrame {
 		contentPane.add(lbluserphone);
 
 		textuserphone = new JTextField();
+		textuserphone.setEditable(false);
 		textuserphone.setColumns(10);
 		textuserphone.setBounds(598, 258, 143, 21);
 		contentPane.add(textuserphone);
@@ -217,16 +228,19 @@ public class AdminFrame extends JFrame {
 		contentPane.add(lblbookprice);
 
 		textfindbookname = new JTextField();
+		textfindbookname.setEditable(false);
 		textfindbookname.setColumns(10);
 		textfindbookname.setBounds(598, 374, 143, 21);
 		contentPane.add(textfindbookname);
 
 		textbookwriter = new JTextField();
+		textbookwriter.setEditable(false);
 		textbookwriter.setColumns(10);
 		textbookwriter.setBounds(598, 425, 143, 21);
 		contentPane.add(textbookwriter);
 
 		textbookprice = new JTextField();
+		textbookprice.setEditable(false);
 		textbookprice.setColumns(10);
 		textbookprice.setBounds(598, 478, 143, 21);
 		contentPane.add(textbookprice);
@@ -235,6 +249,35 @@ public class AdminFrame extends JFrame {
 		textbookname.setBounds(540, 325, 106, 21);
 		contentPane.add(textbookname);
 		textbookname.setColumns(10);
+
+		
+//		JLabel lblUserPicture = new JLabel("사진");
+//		lblUserPicture.setBounds(461, 125, 133, 165);
+//		contentPane.add(lblUserPicture);
+//		
+//		JLabel imgLabel = new JLabel();
+//		
+//		ImageIcon icon = new ImageIcon(AdminFrame.class.getResource("img/book1.jpg"));
+//		
+//		// ImageIcon 객체에서 Image 추출
+//		Image img = icon.getImage();
+//		
+//		// 추출된 Image의 크기 조절하여 새로운 Image 객체 생성
+//		Image updateImg = img.getScaledInstance(165, 100, Image.SCALE_SMOOTH);
+//		
+//		// 새로운 Image 객체로 ImageIcon 객체 생성
+//		ImageIcon updateIcon = new ImageIcon(updateImg);
+//
+//		imgLabel.setIcon(updateIcon);
+//		
+//		// 프레임 설정
+//		imgLabel.setBounds(210, 30, 165, 150);
+//		imgLabel.setHorizontalAlignment(JLabel.CENTER);
+//
+//		getContentPane().add(imgLabel);
+//
+//		setVisible(true);
+
 
 		// 테이블 초기화
 		model = new DefaultTableModel(header, 0) {
@@ -259,6 +302,7 @@ public class AdminFrame extends JFrame {
 		selectAllContactTable();
 	} // end AdminFrame()
 
+	// 책이름으로 정보 찾기
 	private void searchbookname() {
 		String serch = textbookserch.getText();
 		ArrayList<BookTableVO> list = bookservicedao.searchbookname(serch);
@@ -285,6 +329,7 @@ public class AdminFrame extends JFrame {
 
 	} // end searchbookname()
 
+	// 회원명으로 정보 찾기
 	private void searchusername() {
 		String serch = textbookserch.getText();
 		ArrayList<BookTableVO> list = bookservicedao.searchusername(serch);
@@ -311,6 +356,7 @@ public class AdminFrame extends JFrame {
 
 	} // end searchusername()
 
+	// 책이름과 회원명으로 정보 찾기
 	private void searchbookusername() {
 		String serch = textbookserch.getText();
 		ArrayList<BookTableVO> list = bookservicedao.searchbookusername(serch);
@@ -337,6 +383,7 @@ public class AdminFrame extends JFrame {
 
 	} // end searchbookusername()
 
+	// 전체 태이블 찾기
 	private static void selectAllContactTable() {
 		ArrayList<BookTableVO> list = bookservicedao.bookallselect();
 
@@ -360,6 +407,7 @@ public class AdminFrame extends JFrame {
 
 	} // end selectAllContactTable()
 
+	// 유저 정보 찾기
 	private static void selectUser() {
 		String username = textuaername.getText();
 		UserVO uservo = userdao.userselect(username);
@@ -375,4 +423,16 @@ public class AdminFrame extends JFrame {
 
 	} // end selectUser()
 
+	// 책 정보 찾기(책이름으로)
+	private void findbook() {
+		String bookname = textbookname.getText();
+		BooklistVO booklistvo = booklistdao.bookselect(bookname);
+
+		textfindbookname.setText(booklistvo.getBookName());
+
+		textbookwriter.setText(booklistvo.getBookWriter());
+
+		textbookprice.setText(String.valueOf(booklistvo.getBookPrice()));
+
+	} // findbook()
 } // end AdminFrame

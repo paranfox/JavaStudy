@@ -15,6 +15,10 @@ public class AdminVO {
 			this.adminId = adminId;
 			this.adminpassword = adminpassword;
 		}
+		public AdminVO(String adminId, String adminpassword) {
+			this.adminId = adminId;
+			this.adminpassword = adminpassword;
+		}
 		public int getAdmincode() {
 			return admincode;
 		}
