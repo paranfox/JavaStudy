@@ -27,6 +27,7 @@ public interface OracleQuery {
 	public static final String COL_BOOK_CATEGORY_ID = "BOOK_CATEGORY_ID";
 	public static final String COL_BOOK_WRITER = "BOOK_WRITER";
 	public static final String COL_BOOK_PRICE = "BOOK_PRICE";
+	public static final String COL_BOOK_RENTAL_COUNT = "BOOK_RENTAL_COUNT";
 	
 	public static final String TABLE_BOOKSERVICE = "BOOKSERVICE";
 	public static final String COL_BOOK_CATEGORY = "BOOK_CATEGORY";
@@ -109,23 +110,29 @@ public interface OracleQuery {
 	// 책 이름으로 책 정보 찾기
 	public static final String SQL_BOOKSERVISE_BOOKNAME = "SELECT * FROM " + TABLE_BOOKLIST + " WHERE " + COL_BOOK_NAME + " = ?";
 	
-	// 책에 관
-	public static final String SQL_DELETE3 = "";
+	// 책에 관련한 모든 정보 잦기 (저자명으로) 창이 만들어 질때 생성
+	public static final String SQL_BOOKSERVISE_ALL_SELET_BOOKNAME_WRITERNAME = 
+			"SELECT " + COL_BOOK_NAME + " , " + COL_BOOK_WRITER + " , " + COL_BOOK_SERVICE_OUTTIME + " , "
+					+ COL_BOOK_SERVICE_INOUT + " , " + COL_BOOK_SERVICE_INTIME + " FROM " + TABLE_BOOKSERVICE
+					+ " BS JOIN " + TABLE_BOOKLIST + " BL ON BS." + COL_BOOK_ID + " = BL." + COL_BOOK_ID + " JOIN "
+					+ TABLE_USERS + " U ON BS." + COL_USER_CODE + " = U." + COL_USER_CODE + 
+					" WHERE U." + COL_USER_ID + " = ? ORDER BY " + COL_BOOK_SERVICE_INOUT;
 	
-	// 책에 관
-	public static final String SQL_DELETE4 = "";
-	
-	// 책에 관
-	public static final String SQL_DELETE5 = "";
-	
-	// 책에 관
-	public static final String SQL_DELETE6 = "";
+	// 책을 대여시 대여가능한지 확인을 하는 SQL
+	public static final String SQL_BOOKSERVISE_SELET_BOOK_INOUT = "SELECT " + COL_BOOK_RENTAL_COUNT + " FROM " +
+			TABLE_BOOKLIST + " WHERE " + COL_BOOK_NAME + " = ?";
+			
+	// 책이름으로 책의 정보 찾기
+	public static final String SQL_BOOKSERVISE_SELET_BOOK_NAME = "SELECT * FROM " +
+			TABLE_BOOKLIST + " WHERE " + COL_BOOK_NAME + " = ?";
 	
 	// 책에 관
 	public static final String SQL_DELETE7 = "";
 	
 	// 책에 관
 	public static final String SQL_DELETE8 = "";
+	
+	
 	
 	// 테스트
 	public static final String SQL_USER_INSERT_1 = "INSERT INTO USERS " + 

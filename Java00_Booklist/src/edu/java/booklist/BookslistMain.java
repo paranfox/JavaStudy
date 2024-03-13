@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class BookslistMain { 
 
@@ -41,7 +42,7 @@ public class BookslistMain {
 	
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(850, 500, 263, 114);
+		frame.setBounds(850, 500, 263, 167);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -57,7 +58,7 @@ public class BookslistMain {
 				
 			}
 		});
-		btnLogin.setBounds(135, 21, 97, 23);
+		btnLogin.setBounds(138, 82, 97, 23);
 		frame.getContentPane().add(btnLogin);
 		
 		JButton btnmembership = new JButton("회원가입");
@@ -68,8 +69,14 @@ public class BookslistMain {
 				
 			}
 		});
-		btnmembership.setBounds(26, 21, 97, 23);
+		
+		btnmembership.setBounds(24, 82, 97, 23);
 		frame.getContentPane().add(btnmembership);
+		
+		JLabel lblNewLabel = new JLabel("도서 대여 프로그램 0.1V");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(51, 10, 151, 62);
+		frame.getContentPane().add(lblNewLabel);
 		        
 	}
 }

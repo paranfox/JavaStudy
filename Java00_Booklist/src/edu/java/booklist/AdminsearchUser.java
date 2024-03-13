@@ -26,6 +26,7 @@ public class AdminsearchUser extends JFrame {
 	private JTextField textUserBirthdate;
 
 	private static UserDAO userdao;
+	private JTextField textSerchUserName;
 	
 	public AdminsearchUser() {
 		
@@ -36,7 +37,7 @@ public class AdminsearchUser extends JFrame {
 		} // 다형성. 싱글톤 인스턴스 생성
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 453, 374);
+		setBounds(100, 100, 480, 379);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -109,54 +110,17 @@ public class AdminsearchUser extends JFrame {
 		contentPane.add(textUserBirthdate);
 		textUserBirthdate.setColumns(10);
 		
-		JButton btnNewButton = new JButton("저장");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				insertUser();
-			}
-
-			
-		});
-		btnNewButton.setBounds(163, 284, 97, 23);
-		contentPane.add(btnNewButton);
+		JButton btnUserUpdate = new JButton("수정");
+		btnUserUpdate.setBounds(344, 266, 97, 23);
+		contentPane.add(btnUserUpdate);
+		
+		textSerchUserName = new JTextField();
+		textSerchUserName.setBounds(24, 267, 116, 21);
+		contentPane.add(textSerchUserName);
+		textSerchUserName.setColumns(10);
+		
+		JButton btnSerchUserName = new JButton("회원이름 찾기");
+		btnSerchUserName.setBounds(173, 266, 121, 23);
+		contentPane.add(btnSerchUserName);
 	} // end AdminsearchUser()
-	
-	private void insertUser() {
-		String username = textUserName.getText();
-		String userid = textUserId.getText();
-		String userpassword = textUserPassword.getText();
-		String userphone = textUserPhone.getText();
-		String useremail = textUserEmail.getText();
-		String usergander = textUserGander.getText();
-		Date userbirthdate = null;
-		try {
-		 String str = textUserBirthdate.getText();
-         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-         userbirthdate = (Date) format.parse(str);
-         System.out.println(userbirthdate);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		UserVO uservo = new UserVO(username, userid, userpassword, userphone, useremail, usergander, userbirthdate);
-		int result = userdao.userinsert2(uservo);
-		if(result == 1) {
-			System.out.println("성공");
-		}
-		
-	} // end insertUser()
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -9,12 +9,10 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -22,28 +20,35 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
+import java.awt.Choice;
+import java.awt.Button;
 
-public class UserFrame extends JFrame { 
+public class UserFrame extends JFrame {
 
 	private JPanel contentPane;
-	
+
 	private static UserDAO userdao; // UserDAOImple 인스턴스 생성
 	private static BookserviceDAO bookservicedao; // BookserviceDAO 인스턴스 생성
 	private static BooklistDAO booklistdao; // BooklistDAO 인스턴스 생성
-	
+
 	private static JTextField textbookname;
 	private static JTextField textbookserch;
 	private static JTextField textfindbookname;
 	private static JTextField textbookwriter;
-	private static JTextField textbookprice;
+	private static JTextField textbookinout;
+	private static String selectchoice = null;
 
-	private static String[] header = { "도서제목", "회원명", "대출일자", "상태", "반납날짜" };
+	private static String[] header = { "도서제목", "저자명", "대출일자", "상태", "반납날짜" };
 	private static Object[] records = new Object[header.length];
 	private static DefaultTableModel model; // 테이블 형태를 만들 변수
 	private static JTable table;
 
-	
-	public UserFrame(String user_id) {
+	private static String[] allheader = { "도서명", "저자명", "카테고리" };
+	private static Object[] allrecords = new Object[header.length];
+	private static DefaultTableModel allmodel; // 테이블 형태를 만들 변수
+	private static JTable alltable;
+
+	public UserFrame(String user_id, JFrame frame) {
 
 		try {
 			userdao = UserDAOImple.getInstance();
@@ -53,20 +58,28 @@ public class UserFrame extends JFrame {
 
 		} // 다형성. 싱글톤 인스턴스 생성
 
-		setBounds(700, 250, 785, 625);
+		setBounds(700, 250, 895, 625);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
 		JMenu mnNewMenu = new JMenu("menu");
 		menuBar.add(mnNewMenu);
-		
+
 		JMenuItem mntmuserinterface = new JMenuItem("회원 정보 수정");
 		mnNewMenu.add(mntmuserinterface);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		Choice choice = new Choice();
+		choice.addItem("검색");
+		choice.addItem("도서제목");
+		choice.addItem("저자명");
+		choice.addItem("카테고리");
+		choice.setBounds(437, 104, 78, 21);
+		contentPane.add(choice);
 
 		JLabel lblNewLabel = new JLabel("환영합니다!");
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 28));
@@ -80,7 +93,7 @@ public class UserFrame extends JFrame {
 		contentPane.add(lbl_user_name);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 100, 437, 418);
+		scrollPane.setBounds(447, 363, 419, 160);
 		contentPane.add(scrollPane);
 
 		JLabel lblbook = new JLabel("도서 정보");
@@ -88,18 +101,31 @@ public class UserFrame extends JFrame {
 		lblbook.setBounds(461, 80, 78, 18);
 		contentPane.add(lblbook);
 
-		JLabel lblbooklook = new JLabel("제목으로 검색");
-		lblbooklook.setBounds(461, 108, 84, 15);
-		contentPane.add(lblbooklook);
-
 		JButton btnfindbook = new JButton("검색");
 		btnfindbook.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				switch (choice.getSelectedIndex()) {
+				case 1:
+					selectchoice = "도서제목";
+					break;
+				case 2:
+					selectchoice = "저자명";
+					break;
+				case 3:
+					selectchoice = "카테고리";
+					break;
+				default:
+					selectchoice = "검색할 내용을 정해주세요";
+					textbookname.setText(selectchoice);
+					return;
+				}
+				booknameserch(selectchoice);
+
 			}
 
 		});
-		btnfindbook.setBounds(660, 104, 97, 23);
+		btnfindbook.setBounds(667, 104, 97, 23);
 		contentPane.add(btnfindbook);
 
 		JButton btnexit = new JButton("종료");
@@ -108,7 +134,7 @@ public class UserFrame extends JFrame {
 				System.exit(0);
 			}
 		});
-		btnexit.setBounds(644, 9, 97, 23);
+		btnexit.setBounds(769, 9, 97, 23);
 		contentPane.add(btnexit);
 
 		JLabel lblbookserch = new JLabel("검색");
@@ -130,13 +156,13 @@ public class UserFrame extends JFrame {
 		textbookserch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (chckbxbookname.isSelected() && chckbxwritername.isSelected()) { // 도서제목과 회원명 찾기
-					
+
 				} else if (chckbxwritername.isSelected()) { // 회원명 찾기
-					
+
 				} else if (chckbxbookname.isSelected()) { // 도서제목 찾기
-					
+
 				} else {
-					textbookserch.setText("도서제목이나 회원명을 눌러주세요~");
+					textbookserch.setText("도서제목이나 저자명을 눌러주세요~");
 				}
 
 			}
@@ -148,7 +174,7 @@ public class UserFrame extends JFrame {
 		textbookserch.setColumns(10);
 
 		JLabel lblBookPicture = new JLabel("사진");
-		lblBookPicture.setBounds(461, 136, 133, 165);
+		lblBookPicture.setBounds(443, 136, 151, 165);
 		contentPane.add(lblBookPicture);
 
 		JLabel lblbookname = new JLabel("제목");
@@ -175,16 +201,41 @@ public class UserFrame extends JFrame {
 		textbookwriter.setBounds(606, 219, 143, 21);
 		contentPane.add(textbookwriter);
 
-		textbookprice = new JTextField();
-		textbookprice.setEditable(false);
-		textbookprice.setColumns(10);
-		textbookprice.setBounds(606, 291, 143, 21);
-		contentPane.add(textbookprice);
+		textbookinout = new JTextField();
+		textbookinout.setEditable(false);
+		textbookinout.setColumns(10);
+		textbookinout.setBounds(606, 291, 143, 21);
+		contentPane.add(textbookinout);
 
 		textbookname = new JTextField();
-		textbookname.setBounds(549, 105, 106, 21);
+		textbookname.setBounds(521, 105, 134, 21);
 		contentPane.add(textbookname);
 		textbookname.setColumns(10);
+
+		JButton btnBookOut = new JButton("대여");
+		btnBookOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int check = bookseleterentar(textfindbookname.getText());
+				if (check > 0) {
+					System.out.println("대여가능");
+				} else {
+					System.out.println("대여불가능");
+				}
+			}
+
+		});
+		btnBookOut.setBounds(769, 104, 97, 23);
+		contentPane.add(btnBookOut);
+
+		JButton btnLogOut = new JButton("로그아웃");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnLogOut.setBounds(667, 9, 97, 23);
+		contentPane.add(btnLogOut);
 
 		// 테이블 초기화
 		model = new DefaultTableModel(header, 0) {
@@ -206,32 +257,140 @@ public class UserFrame extends JFrame {
 		table.setFont(new Font("굴림", Font.PLAIN, 15));
 
 		scrollPane.setViewportView(table);
-		selectAllContactTable();
-		
-	} // end UserFrame()
-	
-	
-	// 전체 태이블 찾기
-		private static void selectAllContactTable() {
-			ArrayList<BookTableVO> list = bookservicedao.bookallselect();
 
-			System.out.println(list);
-			model.setRowCount(0);
-			System.out.println(list.size());
-			for (int i = 0; i < list.size(); i++) {
-				records[0] = list.get(i).getBookname().isBlank();
-				records[1] = list.get(i).getUserid();
-				records[2] = list.get(i).getBookserviceouttime();
-				if (list.get(i).getBookserviceinout().equals("대여")) {
-					records[3] = "대여중";
-				} else if ((list.get(i).getBookserviceinout().equals("반납"))) {
-					records[3] = "반납";
-				} else {
-					records[3] = "보관중";
-				}
-				records[4] = list.get(i).getBookserviceintime();
-				model.addRow(records);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(12, 104, 419, 419);
+		contentPane.add(scrollPane_1);
+
+		// 테이블 초기화
+		allmodel = new DefaultTableModel(allheader, 0) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		alltable = new JTable(allmodel);
+		alltable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = alltable.getSelectedRow();
+				System.out.println(row);
+				int col = alltable.getSelectedColumn();
+				System.out.println(col);
+				Object value = alltable.getValueAt(row, 0); // row = 행(세로), col = 열
+				System.out.println(value);
+				selectbookname(value.toString());
+				
 			}
 
-		} // end selectAllContactTable()
-} // end UserFrame
+		});
+		alltable.setFont(new Font("굴림", Font.PLAIN, 15));
+
+		scrollPane_1.setViewportView(alltable);
+
+		JButton btnBookIn = new JButton("반납");
+		btnBookIn.setBounds(769, 137, 97, 23);
+		contentPane.add(btnBookIn);
+
+		selectAllContactTable(user_id);
+//		selectAllBookListTable();		
+	} // end UserFrame()
+
+	// 전체 태이블 찾기
+	private static void selectAllContactTable(String userid) {
+		ArrayList<BookTableVO> list = bookservicedao.bookallselectwriter(userid);
+
+		System.out.println(list);
+		model.setRowCount(0);
+		System.out.println(list.size());
+		for (int i = 0; i < list.size(); i++) {
+			records[0] = list.get(i).getBookname();
+			records[1] = list.get(i).getUserid();
+			records[2] = list.get(i).getBookserviceouttime();
+			if (list.get(i).getBookserviceinout().equals("대여")) {
+				records[3] = "대여중";
+			} else if ((list.get(i).getBookserviceinout().equals("반납"))) {
+				records[3] = "반납";
+			} else {
+				records[3] = "보관중";
+			}
+			records[4] = list.get(i).getBookserviceintime();
+			model.addRow(records);
+		}
+
+	} // end selectAllContactTable()
+
+	// 전체 책리스트 태이블 찾기
+//		private static void selectAllBookListTable() {
+//			ArrayList<BookTableVO> list = bookservicedao.bookallselectwriter();
+//
+//			System.out.println(list);
+//			allmodel.setRowCount(0);
+//			System.out.println(list.size());
+//			for (int i = 0; i < list.size(); i++) {
+//				allrecords[0] = list.get(i).getBookname();
+//				allrecords[1] = list.get(i).getUserid();
+//				allrecords[2] = list.get(i).getBookserviceouttime();
+//				allrecords[3] = list.get(i).getBookserviceintime();
+//				allmodel.addRow(allrecords);
+//			}
+//
+//		} // end selectAllBookListTable()
+//	
+//	// 책 대여하기
+//	private void bookseleterentar(String bookname) {
+//		bookservicedao.bookinoutselect(bookname);
+
+//	} // end bookseleterentar()
+	// 책 대여가능한지 불가능한지 확인 메소드
+	private int bookseleterentar(String bookname) {
+		int bookrentalcount = bookservicedao.bookinoutselect(bookname);
+		return bookrentalcount;
+	} // end bookseleterentar()
+
+	// choice으로 선택한 것을 기준으로 검색
+	private void booknameserch(String selectchoice) {
+		switch (selectchoice) {
+		case "도서제목":
+			selectchoice = "BOOK_NAME";
+			break;
+		case "저자명":
+			selectchoice = "BOOK_WRITER";
+			break;
+		case "카테고리":
+			selectchoice = "BOOK_CATEGORY";
+			break;
+		default:
+			break;
+		}
+		ArrayList<BookTableVO> list = bookservicedao.searchbookchoice(selectchoice, textbookname.getText());
+		
+		System.out.println(list);
+		allmodel.setRowCount(0);
+		System.out.println(list.size());
+		for (int i = 0; i < list.size(); i++) {
+			allrecords[0] = list.get(i).getBookname();
+			allrecords[1] = list.get(i).getBookwriter();
+			allrecords[2] = list.get(i).getBookcategory();
+			allmodel.addRow(allrecords);
+		}
+	
+	} // end booknameserch()
+
+	private void selectbookname(String bookname) {
+		BookTableVO vo = bookservicedao.searchallbookname(bookname);
+		textfindbookname.setText(vo.getBookname());
+		textbookwriter.setText(vo.getBookwriter());
+		textbookinout.setText(vo.getBookcategory());
+		int check = bookseleterentar(textfindbookname.getText());
+		if (check > 0) {
+			System.out.println("대여가능");
+		} else {
+			System.out.println("대여불가능");
+		}
+	
+	} // end selectbookname()
+	
+
+}
+// end UserFrame

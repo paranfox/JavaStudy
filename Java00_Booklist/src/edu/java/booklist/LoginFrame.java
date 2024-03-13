@@ -97,7 +97,7 @@ public class LoginFrame extends JFrame implements USE_FRAME_CODE {
 					if (check == 1) {
 						dispose();
 //					System.exit(0); 화면 전체 종료
-						UserWelcome userwelcome = new UserWelcome(UserId());
+						UserWelcome userwelcome = new UserWelcome(UserId(), frame);
 						userwelcome.setVisible(true);
 						frame.setVisible(false);
 					} else {

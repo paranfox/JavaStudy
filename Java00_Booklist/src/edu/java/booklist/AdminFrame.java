@@ -25,7 +25,7 @@ public class AdminFrame extends JFrame {
 	private static JTextField textuserphone;
 	private static JTextField textfindbookname;
 	private static JTextField textbookwriter;
-	private static JTextField textbookprice;
+	private static JTextField textbookinout;
 
 	private static String[] header = { "도서제목", "회원명", "대출일자", "상태", "반납날짜" };
 	private static Object[] records = new Object[header.length];
@@ -223,9 +223,9 @@ public class AdminFrame extends JFrame {
 		lblbookwriter.setBounds(598, 405, 57, 15);
 		contentPane.add(lblbookwriter);
 
-		JLabel lblbookprice = new JLabel("가격");
-		lblbookprice.setBounds(598, 456, 57, 15);
-		contentPane.add(lblbookprice);
+		JLabel lblbookinout = new JLabel("대여상태");
+		lblbookinout.setBounds(598, 456, 57, 15);
+		contentPane.add(lblbookinout);
 
 		textfindbookname = new JTextField();
 		textfindbookname.setEditable(false);
@@ -239,11 +239,11 @@ public class AdminFrame extends JFrame {
 		textbookwriter.setBounds(598, 425, 143, 21);
 		contentPane.add(textbookwriter);
 
-		textbookprice = new JTextField();
-		textbookprice.setEditable(false);
-		textbookprice.setColumns(10);
-		textbookprice.setBounds(598, 478, 143, 21);
-		contentPane.add(textbookprice);
+		textbookinout = new JTextField();
+		textbookinout.setEditable(false);
+		textbookinout.setColumns(10);
+		textbookinout.setBounds(598, 478, 143, 21);
+		contentPane.add(textbookinout);
 
 		textbookname = new JTextField();
 		textbookname.setBounds(540, 325, 106, 21);
@@ -391,7 +391,7 @@ public class AdminFrame extends JFrame {
 		model.setRowCount(0);
 		System.out.println(list.size());
 		for (int i = 0; i < list.size(); i++) {
-			records[0] = list.get(i).getBookname().isBlank();
+			records[0] = list.get(i).getBookname();
 			records[1] = list.get(i).getUserid();
 			records[2] = list.get(i).getBookserviceouttime();
 			if (list.get(i).getBookserviceinout().equals("대여")) {
@@ -427,12 +427,20 @@ public class AdminFrame extends JFrame {
 	private void findbook() {
 		String bookname = textbookname.getText();
 		BooklistVO booklistvo = booklistdao.bookselect(bookname);
-
+		String inout = null; 
+		int check = booklistvo.getBookInOut();
 		textfindbookname.setText(booklistvo.getBookName());
 
 		textbookwriter.setText(booklistvo.getBookWriter());
 
-		textbookprice.setText(String.valueOf(booklistvo.getBookPrice()));
+		if(check >= 1) {
+			inout = "대여 가능";
+			textbookinout.setText(inout);
+//			textbookinout.setText(String.valueOf(booklistvo.getBookInOut()));
+		} else {
+			inout = "대여 불가능";
+			textbookinout.setText(inout);
+		}
 
 	} // findbook()
 } // end AdminFrame

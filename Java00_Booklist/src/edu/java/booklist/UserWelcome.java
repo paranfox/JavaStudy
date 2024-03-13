@@ -15,7 +15,7 @@ public class UserWelcome extends JFrame implements USE_FRAME_CODE {
 
 	private JPanel contentPane;
 	
-	public UserWelcome(String user_id) {
+	public UserWelcome(String user_id, JFrame frame) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(setBounds_Width, setBounds_Height, 450, 300);
 		contentPane = new JPanel();
@@ -27,7 +27,7 @@ public class UserWelcome extends JFrame implements USE_FRAME_CODE {
 		btnmain.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				UserFrame userframe = new UserFrame(user_id);
+				UserFrame userframe = new UserFrame(user_id, frame);
 				userframe.setVisible(true);
 				dispose();
 			}

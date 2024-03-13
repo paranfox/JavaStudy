@@ -7,6 +7,7 @@ public class BooklistVO {
 	private int BookCategory; // 도서 카테고리
 	private String BookWriter; // 도서 저자
 	private int BookPrice; // 도서 가격
+	private int BookInOut; // 도서 대여 상태
 	
 	public BooklistVO() {
 		super();
@@ -18,10 +19,10 @@ public class BooklistVO {
 		BookName = bookName;
 		BookCategory = bookCategory;
 	}
-	public BooklistVO(String BookName, String BookWriter, int BookPrice) {
+	public BooklistVO(String BookName, String BookWriter, int BookInOut) {
 		this.BookName = BookName;
 		this.BookWriter = BookWriter;
-		this.BookPrice = BookPrice;
+		this.BookInOut = BookInOut;
 	}
 	public int getBookId() {
 		return BookId;
@@ -53,6 +54,13 @@ public class BooklistVO {
 	public void setBookPrice(int bookPrice) {
 		BookPrice = bookPrice;
 	}
+	public int getBookInOut() {
+		return BookInOut;
+	}
+	public void setBookInOut(int BookInOut) {
+		this.BookInOut = BookInOut;
+	}
+	
 	@Override
 	public String toString() {
 		return "BookslistVO [BookId=" + BookId + ", BookName=" + BookName + ", BookCategory=" + BookCategory + "]";
