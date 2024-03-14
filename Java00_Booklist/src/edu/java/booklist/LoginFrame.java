@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -44,7 +45,7 @@ public class LoginFrame extends JFrame implements USE_FRAME_CODE {
 		textId.setBounds(244, 68, 137, 42);
 		contentPane.add(textId);
 
-		textPassword = new JTextField();
+		textPassword = new JPasswordField();
 		textPassword.setColumns(10);
 		textPassword.setBounds(244, 147, 137, 42);
 		contentPane.add(textPassword);

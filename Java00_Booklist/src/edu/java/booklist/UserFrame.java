@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import java.awt.Choice;
 import java.awt.Button;
+import javax.swing.JPasswordField;
 
 public class UserFrame extends JFrame {
 
@@ -381,16 +382,13 @@ public class UserFrame extends JFrame {
 		BookTableVO vo = bookservicedao.searchallbookname(bookname);
 		textfindbookname.setText(vo.getBookname());
 		textbookwriter.setText(vo.getBookwriter());
-		textbookinout.setText(vo.getBookcategory());
 		int check = bookseleterentar(textfindbookname.getText());
 		if (check > 0) {
-			System.out.println("대여가능");
+			textbookinout.setText("대여가능");
 		} else {
-			System.out.println("대여불가능");
+			textbookinout.setText("대여불가능");
 		}
 	
 	} // end selectbookname()
-	
-
 }
 // end UserFrame
