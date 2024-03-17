@@ -13,10 +13,10 @@ public interface BookserviceDAO { //도서 대여/관리 기능 메서드 정의
 	public abstract int bookinoutselect(String bookname);
 	
 	// 도서 대여 시간
-	public abstract BooklistVO bookouttime(int index);
+	public abstract ArrayList<BookTableVO> bookouttime(String bookname, String user_id);
 	
 	// 도서 반납 시간
-	public abstract BooklistVO bookintime(int index);
+	public abstract BookTableVO bookintime(int index);
 	
 	// 도서 정보 책이름으로 찾기
 	public abstract BookTableVO searchallbookname(String bookname);
@@ -39,5 +39,13 @@ public interface BookserviceDAO { //도서 대여/관리 기능 메서드 정의
 	// 회원명으로 정보 찾기
 	public abstract ArrayList<BookTableVO> searchusername(String serch);
 	
+	// 도서 유저가 대여를 한경우
+	public abstract Void bookouttimeuser(String bookname, String user_id);
 		
+	// 이미 책을 빌렸는지 확인
+	public abstract int bookinoutcheck(String bookname, String user_id);
+	
+	// 도서 반납
+	public abstract Void bookintime(String bookname, String user_id);
+	
 } // end BookserviceDAO

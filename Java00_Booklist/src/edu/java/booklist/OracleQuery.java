@@ -1,7 +1,7 @@
 package edu.java.booklist;
 
 //JDBC에서 DB 접속에 사용될 상수들, SQL 문장들 정의
-public interface OracleQuery { 
+public interface OracleQuery {
 	public static final String URL = "jdbc:oracle:thin:@localhost:1521:xe"; // 접속할 오라클 DB 경로
 	public static final String USER = "scott";
 	public static final String PASSWORD = "tiger";
@@ -28,7 +28,7 @@ public interface OracleQuery {
 	public static final String COL_BOOK_WRITER = "BOOK_WRITER";
 	public static final String COL_BOOK_PRICE = "BOOK_PRICE";
 	public static final String COL_BOOK_RENTAL_COUNT = "BOOK_RENTAL_COUNT";
-	
+
 	public static final String TABLE_BOOKSERVICE = "BOOKSERVICE";
 	public static final String COL_BOOK_CATEGORY = "BOOK_CATEGORY";
 //	public static final String COL_FK_USER_CODE = "USER_CODE";  어떤 태리클에 외래키로 잡음
@@ -52,11 +52,12 @@ public interface OracleQuery {
 	public static final String COL_BOOK_SERVICE_BS_BOOK_SERVICE_INTIME = "BS.BOOK_SERVICE_INTIME";
 
 	// 유저와 관리자 따로 로그인 기능
-	public static final String SQL_SELETE_USER_ADMIN = "SELECT " + COL_ADMIN_ID + " FROM " + TABLE_ADMIN + " WHERE " + COL_ADMIN_ID + " = ?";
-	
+	public static final String SQL_SELETE_USER_ADMIN = "SELECT " + COL_ADMIN_ID + " FROM " + TABLE_ADMIN + " WHERE "
+			+ COL_ADMIN_ID + " = ?";
+
 	// 관리자 로그인
 	public static final String SQL_ADMIN_CHECK = "SELECT * FROM " + TABLE_ADMIN + " WHERE " + COL_ADMIN_ID + " = ?";
-	
+
 	// 유저 회원가입
 	public static final String SQL_USER_INSERT = "INSERT INTO " + TABLE_USERS + " ( " + COL_USER_CODE + " , "
 			+ COL_USER_ID + " , " + COL_USER_PASSWORD + " , " + COL_USER_NAME + " ) "
@@ -105,38 +106,65 @@ public interface OracleQuery {
 			+ COL_USER_NAME + " = ?";
 
 	// 유저 이름으로 유저 정보 찾기
-	public static final String SQL_BOOKSERVISE_USERNAME = "SELECT * FROM " + TABLE_USERS + " WHERE " + COL_USER_NAME + " = ?";
-	
+	public static final String SQL_BOOKSERVISE_USERNAME = "SELECT * FROM " + TABLE_USERS + " WHERE " + COL_USER_NAME
+			+ " = ?";
+
 	// 책 이름으로 책 정보 찾기
-	public static final String SQL_BOOKSERVISE_BOOKNAME = "SELECT * FROM " + TABLE_BOOKLIST + " WHERE " + COL_BOOK_NAME + " = ?";
-	
+	public static final String SQL_BOOKSERVISE_BOOKNAME = "SELECT * FROM " + TABLE_BOOKLIST + " WHERE " + COL_BOOK_NAME
+			+ " = ?";
+
 	// 책에 관련한 모든 정보 잦기 (저자명으로) 창이 만들어 질때 생성
-	public static final String SQL_BOOKSERVISE_ALL_SELET_BOOKNAME_WRITERNAME = 
-			"SELECT " + COL_BOOK_NAME + " , " + COL_BOOK_WRITER + " , " + COL_BOOK_SERVICE_OUTTIME + " , "
-					+ COL_BOOK_SERVICE_INOUT + " , " + COL_BOOK_SERVICE_INTIME + " FROM " + TABLE_BOOKSERVICE
-					+ " BS JOIN " + TABLE_BOOKLIST + " BL ON BS." + COL_BOOK_ID + " = BL." + COL_BOOK_ID + " JOIN "
-					+ TABLE_USERS + " U ON BS." + COL_USER_CODE + " = U." + COL_USER_CODE + 
-					" WHERE U." + COL_USER_ID + " = ? ORDER BY " + COL_BOOK_SERVICE_INOUT;
-	
+	public static final String SQL_BOOKSERVISE_ALL_SELET_BOOKNAME_WRITERNAME = "SELECT " + COL_BOOK_NAME + " , "
+			+ COL_BOOK_WRITER + " , " + COL_BOOK_SERVICE_OUTTIME + " , " + COL_BOOK_SERVICE_INOUT + " , "
+			+ COL_BOOK_SERVICE_INTIME + " FROM " + TABLE_BOOKSERVICE + " BS JOIN " + TABLE_BOOKLIST + " BL ON BS."
+			+ COL_BOOK_ID + " = BL." + COL_BOOK_ID + " JOIN " + TABLE_USERS + " U ON BS." + COL_USER_CODE + " = U."
+			+ COL_USER_CODE + " WHERE U." + COL_USER_ID + " = ? ORDER BY " + COL_BOOK_SERVICE_INOUT;
+
 	// 책을 대여시 대여가능한지 확인을 하는 SQL
-	public static final String SQL_BOOKSERVISE_SELET_BOOK_INOUT = "SELECT " + COL_BOOK_RENTAL_COUNT + " FROM " +
-			TABLE_BOOKLIST + " WHERE " + COL_BOOK_NAME + " = ?";
-			
+	public static final String SQL_BOOKSERVISE_SELET_BOOK_INOUT = "SELECT " + COL_BOOK_RENTAL_COUNT + " FROM "
+			+ TABLE_BOOKLIST + " WHERE " + COL_BOOK_NAME + " = ?";
+
 	// 책이름으로 책의 정보 찾기
-	public static final String SQL_BOOKSERVISE_SELET_BOOK_NAME = "SELECT * FROM " +
-			TABLE_BOOKLIST + " WHERE " + COL_BOOK_NAME + " = ?";
+	public static final String SQL_BOOKSERVISE_SELET_BOOK_NAME = "SELECT * FROM " + TABLE_BOOKLIST + " WHERE "
+			+ COL_BOOK_NAME + " = ?";
+
+	// 책을 유저가 대여를 한 경우 유저 정보 꺼내오기
+	public static final String SQL_BOOK_RENTAL_USER = "SELECT BOOK_NAME , BOOK_WRITER , BOOK_SERVICE_OUTTIME , BOOK_SERVICE_INOUT , " +
+			" BOOK_SERVICE_INTIME FROM BOOKSERVICE BS JOIN BOOKLIST BL ON BS.BOOK_ID = BL.BOOK_ID JOIN USERS U ON BS.USER_CODE = " +
+			" U.USER_CODE WHERE U.USER_ID = ? ORDER BY BOOK_SERVICE_INOUT";
+
+	// 책이 이미 대여 상태일 경우
+	public static final String SQL_BOOK_NOW_RENTAL_USER = 
+			"SELECT  BOOK_SERVICE_INOUT FROM BOOKSERVICE BS JOIN BOOKLIST BL ON BS.BOOK_ID = BL.BOOK_ID JOIN USERS U ON BS.USER_CODE = U.USER_CODE WHERE U.USER_ID = ? AND " + 
+			" BS.BOOK_ID = (SELECT BOOK_ID FROM BOOKLIST WHERE BOOK_NAME = ?)";
 	
-	// 책에 관
-	public static final String SQL_DELETE7 = "";
+	// 책이 반납하고 다시 대여를 할 경우
+	public static final String SQL_BOOK_DELETE_RENTAL_USER = "DELETE FROM BOOKSERVICE " +
+	" WHERE BOOK_ID =(SELECT BOOK_ID FROM BOOKLIST WHERE BOOK_NAME = ?)";
 	
-	// 책에 관
-	public static final String SQL_DELETE8 = "";
-	
-	
-	
+	// 책을 대여한 경우
+	public static final String SQL_BOOK_RENTAL_COUNT_DOWN = "UPDATE BOOKLIST "
+			+ " SET BOOK_RENTAL_COUNT = (SELECT BOOK_RENTAL_COUNT FROM BOOKLIST WHERE BOOK_NAME = ?) - 1 "
+			+ " WHERE BOOK_NAME = ?";
+
+	// 책에 반납한 경우
+	public static final String SQL_BOOK_RENTAL_COUNT_UP = "UPDATE BOOKLIST "
+			+ " SET BOOK_RENTAL_COUNT = (SELECT BOOK_RENTAL_COUNT FROM BOOKLIST WHERE BOOK_NAME = ?) + 1 "
+			+ " WHERE BOOK_NAME = ?";
+
+	// 책을 대여한 유저 정보 저장
+	public static final String SQL_BOOKSERVISE_RENTAL_USER_OUT = 
+			" INSERT INTO BOOKSERVICE " +
+			" VALUES ((SELECT BOOK_ID FROM BOOKLIST WHERE BOOK_NAME = ?) , (SELECT USER_CODE FROM USERS WHERE USER_ID = ?), '대여' , sysdate, null)";
+
+	// 책을 반납한 유저 정보 저장
+	public static final String SQL_BOOKSERVISE_RENTAL_USER_IN = "UPDATE BOOKSERVICE " +
+			" SET BOOK_SERVICE_OUTTIME = null, BOOK_SERVICE_INTIME = sysdate, BOOK_SERVICE_INOUT = '반납' " +
+			" WHERE BOOK_ID = (SELECT BOOK_ID FROM BOOKLIST WHERE BOOK_NAME = ?)";
+
 	// 테스트
-	public static final String SQL_USER_INSERT_1 = "INSERT INTO USERS " + 
-			" (USER_CODE, USER_NAME, USER_ID , USER_PASSWORD , USER_PHONE , USER_EMAIL, USER_GENDER, USER_BIRTH_DATE ) " +
-			" VALUES (USER_SEQ.nextval , ?, ?, ?, ?, ?, ?, ?)";
+	public static final String SQL_USER_INSERT_1 = "INSERT INTO USERS "
+			+ " (USER_CODE, USER_NAME, USER_ID , USER_PASSWORD , USER_PHONE , USER_EMAIL, USER_GENDER, USER_BIRTH_DATE ) "
+			+ " VALUES (USER_SEQ.nextval , ?, ?, ?, ?, ?, ?, ?)";
 
 } // end OracleQuery

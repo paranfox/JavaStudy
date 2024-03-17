@@ -219,10 +219,14 @@ public class UserFrame extends JFrame {
 				int check = bookseleterentar(textfindbookname.getText());
 				if (check > 0) {
 					System.out.println("대여가능");
+					BOOK_RENTAL_COUNT_DOWN(textfindbookname.getText(), user_id);
 				} else {
 					System.out.println("대여불가능");
+					return;
 				}
 			}
+
+
 
 		});
 		btnBookOut.setBounds(769, 104, 97, 23);
@@ -250,9 +254,13 @@ public class UserFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = table.getSelectedRow();
+				System.out.println(row);
 				int col = table.getSelectedColumn();
-				Object value = table.getValueAt(row, col);
+				System.out.println(col);
+				Object value = table.getValueAt(row, 0); // row = 행(세로), col = 열
 				System.out.println(value);
+				selectbookname(value.toString());
+				
 			}
 		});
 		table.setFont(new Font("굴림", Font.PLAIN, 15));
@@ -290,6 +298,12 @@ public class UserFrame extends JFrame {
 		scrollPane_1.setViewportView(alltable);
 
 		JButton btnBookIn = new JButton("반납");
+		btnBookIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BOOK_RENTAL_COUNT_UP(textfindbookname.getText(), user_id);
+				selectAllContactTable(user_id);
+			}
+		});
 		btnBookIn.setBounds(769, 137, 97, 23);
 		contentPane.add(btnBookIn);
 
@@ -390,5 +404,43 @@ public class UserFrame extends JFrame {
 		}
 	
 	} // end selectbookname()
+	
+
+	private void BOOK_RENTAL_COUNT_DOWN(String bookname, String user_id) {
+		int check = bookservicedao.bookinoutcheck(bookname, user_id);
+		if(check == 1) {
+			System.out.println("대여중");
+			return;
+		} else if (check == 2) {
+			System.out.println("반납");
+		}
+		bookservicedao.bookouttimeuser(bookname, user_id);
+		ArrayList<BookTableVO> list = bookservicedao.bookouttime(bookname, user_id);
+
+		System.out.println(list);
+		model.setRowCount(0);
+		System.out.println(list.size());
+		for (int i = 0; i < list.size(); i++) {
+			records[0] = list.get(i).getBookname();
+			records[1] = list.get(i).getUserid();
+			records[2] = list.get(i).getBookserviceouttime();
+			if (list.get(i).getBookserviceinout().equals("대여")) {
+				records[3] = "대여중";
+			} else if ((list.get(i).getBookserviceinout().equals("반납"))) {
+				records[3] = "반납";
+			} else {
+				records[3] = "보관중";
+			}
+			records[4] = list.get(i).getBookserviceintime();
+			model.addRow(records);
+		}
+	} // end BOOK_RENTAL_COUNT_DOWN
+
+	private void BOOK_RENTAL_COUNT_UP(String bookname, String user_id) {
+		bookservicedao.bookintime(bookname, user_id);
+		
+		
+	}  // end BOOK_RENTAL_COUNT_UP()
+	
 }
 // end UserFrame
