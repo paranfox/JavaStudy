@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 
 public class AdminsearchUser extends JFrame { 
-
+ 
 	private JPanel contentPane;
 	private JTextField textUserName;
 	private JTextField textUserId;

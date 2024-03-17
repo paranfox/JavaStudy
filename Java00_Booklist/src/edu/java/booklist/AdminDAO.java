@@ -2,7 +2,7 @@ package edu.java.booklist;
 
 import java.util.ArrayList;
 
-public interface AdminDAO { 
+public interface AdminDAO {
 	// 관리자 확인
 	public abstract int admincheck(String chackid);
 	

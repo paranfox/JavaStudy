@@ -210,7 +210,7 @@ public class UserDAOImple implements UserDAO, OracleQuery {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String user_name = null;
+		String user_name = null; 
 
 		System.out.println("username()"); // 로그 찍기
 		System.out.println("user_id = " + user_id);

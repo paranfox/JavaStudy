@@ -40,7 +40,7 @@ public class BookslistMain {
 	 * Initialize the contents of the frame.
 	 */
 	
-	private void initialize() {
+	private void initialize() { 
 		frame = new JFrame();
 		frame.setBounds(850, 500, 263, 167);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

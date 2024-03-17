@@ -7,4 +7,4 @@ public interface USE_FRAME_CODE {
 	public static final int setBounds_Width = 800; // frame 시작 넓이
 	public static final int setBounds_Height = 300; // frame 시작 높이
 
-} // end USE_FRAME_CODE
+} // end USE_FRAME_CODE 

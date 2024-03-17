@@ -142,7 +142,7 @@ public interface OracleQuery {
 	public static final String SQL_BOOK_DELETE_RENTAL_USER = "DELETE FROM BOOKSERVICE " +
 	" WHERE BOOK_ID =(SELECT BOOK_ID FROM BOOKLIST WHERE BOOK_NAME = ?)";
 	
-	// 책을 대여한 경우
+	// 책을 대여한 경우 
 	public static final String SQL_BOOK_RENTAL_COUNT_DOWN = "UPDATE BOOKLIST "
 			+ " SET BOOK_RENTAL_COUNT = (SELECT BOOK_RENTAL_COUNT FROM BOOKLIST WHERE BOOK_NAME = ?) - 1 "
 			+ " WHERE BOOK_NAME = ?";

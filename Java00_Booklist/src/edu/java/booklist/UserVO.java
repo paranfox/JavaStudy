@@ -22,7 +22,7 @@ public class UserVO {
 		this.userId = userId;
 		this.userpassword = userpassword;
 		this.username = username;
-		this.userphone = userphone;
+		this.userphone = userphone; 
 		this.useremail = useremail;
 		this.usergender = usergender;
 		this.userbirthdate = userbirthdate;

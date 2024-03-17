@@ -26,7 +26,7 @@ public class Usercheck extends JDialog implements USE_FRAME_CODE {
 		{
 			JLabel lblNewLabel = new JLabel("아이디와 페스워드를 입력해 주세요.");
 			contentPanel.add(lblNewLabel);
-		}
+		} 
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 228, 434, 33);

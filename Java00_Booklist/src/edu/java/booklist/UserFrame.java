@@ -419,7 +419,7 @@ public class UserFrame extends JFrame {
 
 		System.out.println(list);
 		model.setRowCount(0);
-		System.out.println(list.size());
+		System.out.println(list.size()); 
 		for (int i = 0; i < list.size(); i++) {
 			records[0] = list.get(i).getBookname();
 			records[1] = list.get(i).getUserid();

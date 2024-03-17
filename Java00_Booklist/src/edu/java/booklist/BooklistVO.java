@@ -10,7 +10,7 @@ public class BooklistVO {
 	private int BookInOut; // 도서 대여 상태
 	
 	public BooklistVO() {
-		super();
+		super(); 
 		// TODO Auto-generated constructor stub
 	}
 	public BooklistVO(int bookId, String bookName, int bookCategory) {

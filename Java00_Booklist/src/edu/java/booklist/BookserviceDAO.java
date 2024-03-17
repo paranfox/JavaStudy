@@ -11,7 +11,7 @@ public interface BookserviceDAO { //도서 대여/관리 기능 메서드 정의
 	
 	// 도서 대여 상태
 	public abstract int bookinoutselect(String bookname);
-	
+	 
 	// 도서 대여 시간
 	public abstract ArrayList<BookTableVO> bookouttime(String bookname, String user_id);
 	

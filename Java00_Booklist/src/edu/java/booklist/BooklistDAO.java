@@ -9,4 +9,4 @@ public interface BooklistDAO {
 		// 도서 인덱스 검색
 		public abstract BooklistVO bookselect(String bookname);
 		
-}
+} 

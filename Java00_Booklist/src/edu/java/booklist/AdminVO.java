@@ -5,7 +5,7 @@ public class AdminVO {
 		private int admincode; // 관리자 인덱스
 		private String adminId; // 관리자 아이디
 		private String adminpassword; // 관리자 비밀번호
-		public AdminVO() { 
+		public AdminVO() {  
 			super();
 			// TODO Auto-generated constructor stub
 		}

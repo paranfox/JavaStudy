@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 public class AdminWelcome extends JFrame implements USE_FRAME_CODE {
 
 	private JPanel contentPane;
-
+ 
 	
 	public AdminWelcome(String admin_id) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

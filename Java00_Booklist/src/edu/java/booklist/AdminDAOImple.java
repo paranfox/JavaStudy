@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import oracle.jdbc.driver.OracleDriver;
 
-public class AdminDAOImple implements AdminDAO, OracleQuery { 
+public class AdminDAOImple implements AdminDAO, OracleQuery {
 	// 1. private static 자기 자신 타입의 변수 선언
 	private static AdminDAOImple instance = null;
 

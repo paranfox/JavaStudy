@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
 
-public class AdminFrame extends JFrame {
+public class AdminFrame extends JFrame { 
 
 	private JPanel contentPane;
 
