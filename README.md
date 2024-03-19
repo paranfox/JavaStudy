@@ -1,4 +1,4 @@
-# 🎧4undCLOUD
+# JAVA STUDY
 <br>
 <h2>🗒️ 프로젝트 개요</h2>
 
